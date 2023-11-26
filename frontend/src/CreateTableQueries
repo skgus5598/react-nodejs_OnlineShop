@@ -1,0 +1,27 @@
+
+CREATE TABLE users(
+	userNo int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	userId varchar(20) NOT NULL,
+	userPwd varchar(20) NOT NULL,
+	userRegion varchar(20),
+	userArea varchar(20)
+);
+
+
+CREATE TABLE products(
+	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	userNo int NOT NULL,
+	pd_title varchar(100) NOT NULL,
+	pd_desc varchar(200) NOT NULL,
+	pd_category varchar(20) NOT NULL,
+	pd_price varchar(20) NOT NULL,
+	FOREIGN KEY(userNo) REFERENCES users(userNo) ON DELETE CASCADE
+);
+
+CREATE TABLE imagesRepo(
+	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	pdId int NOT NULL,
+	imgName varchar(100) NOT NULL,
+	FOREIGN KEY(pdId) REFERENCES products(id) ON DELETE CASCADE
+);
+
