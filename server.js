@@ -14,7 +14,10 @@ app.use(cors(corsOptions));
 
 //DB Router
 const productRoutes = require('./routes/products');
+const userRoutes = require('./routes/users');
+
 app.use(productRoutes);
+app.use(userRoutes);
 
 
 
@@ -26,6 +29,8 @@ app.listen(5000, function(){
 app.get("/images/:imageName", (req, res) => {
   res.sendFile(__dirname + "/imageRepository/" + req.params.imageName);
 })
+
+
 
 
 /*

@@ -77,5 +77,15 @@ const deleteImages = (files) => {
     
 };
 
+const getImageNamesByPdId = (req, res) => {
+    console.log('pdId : ' , req.params.pdId)
+    sql = 'SELECT imgName FROM imagesRepo WHERE pdId = ?';
+    let param = req.params.pdId;
+    connection.query(sql, param, (err, result) => {
+        if (err) console.log("query is not excuted. getImageNamesByPdId fail!\n" + err);
+        else res.send(result);
+    })
+}
 
-module.exports = { findAll , insertProduct}
+
+module.exports = { findAll , insertProduct, getImageNamesByPdId}

@@ -44,7 +44,12 @@ const MoreProducts = () => {
               data.map( (e, i) => {
                 return(
                   <article key={i} className='card'>
-                    <a className='cardLink' onClick={(e) => {navigate('/detail', {state : data[i]})}}>
+                    <a className='cardLink' onClick={(e) => {
+                          window.scrollTo({
+                              top: 0,
+                              behavior: 'smooth'
+                        })
+                        return navigate('/detail', {state : data[i]})}}>
                       <div className='cardPhoto'>
                         {/* <img src='https://codingapple1.github.io/shop/shoes1.jpg' /> */}
                         <img src={`http://localhost:5000/images/${e.imgName}`} />

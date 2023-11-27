@@ -20,12 +20,12 @@ const upload = multer({storage : storage});
 
 
 
-const {findAll, insertProduct} = require('../controller/productController');
+const {findAll, insertProduct, getImageNamesByPdId} = require('../controller/productController');
 
 router.get('/getList', findAll);
 router.post('/upload', upload.array('file'), insertProduct);
 
-
+router.get('/getImageNames/:pdId', getImageNamesByPdId);
 
 
 

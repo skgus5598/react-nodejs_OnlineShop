@@ -1,0 +1,82 @@
+.login-form {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type='email'],
+input[type='text'],
+input[type='password'] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.login-form button {
+    width: 110px;
+    border-radius: 5px;
+    border: solid 3px #81dacd;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    height: 40px;
+    margin: auto;
+    background-color: #ffffff;
+    color: #666666;
+}
+
+#idCheckBtn{
+    border-radius: 3px;
+
+}
+
+.login-form button:hover{
+    background-color: beige;
+}
+
+.login-alink{
+    padding-top: 10px;
+}
+.login-alink h2{
+    padding-top: 10px;
+    background-color: yellow;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.login-alink img{
+    margin-bottom: 10px;
+}
+
+.login-alink a{
+    text-decoration-line: none;
+    color: black;
+}
+#idCheckResult{
+    height: 20px;
+    padding-bottom: 10px;
+    font-size: medium;
+    color: blue;
+}

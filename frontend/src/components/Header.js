@@ -20,7 +20,7 @@ const Header = () => {
                     </Nav>
                     <Nav className='ml-auto'>
                         <button className='headBtn1' onClick={()=>{ navigate('/upload')}}>+SELL</button>
-                        <button className='headBtn2'>LOGIN</button>
+                        <button className='headBtn2' onClick={()=>{ navigate('/login')}}>LOGIN</button>
                         {/* <Nav.Link onClick={() => { navigate('/detail') }} >PRODUCT</Nav.Link> */}
                     </Nav>
                 </Container>
