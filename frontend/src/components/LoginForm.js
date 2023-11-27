@@ -20,7 +20,7 @@ const LoginForm = () => {
 
     //Login Cookie create
     const expireTime = new Date();
-    expireTime.setMinutes(expireTime.getMinutes()+1) // 1mins
+    expireTime.setMinutes(expireTime.getMinutes()+30) // 30mins
 
     const obj = {
         value : loginId,
@@ -31,46 +31,25 @@ const LoginForm = () => {
         e.preventDefault();
         console.log(`id: ${loginId}, Password: ${password}`);
 
-        axios.post('http://localhost:8899/user/login', {
+        axios.post('http://localhost:5000/user/login', {
             userId : loginId,
             userPwd : password
         }, {
             headers : {"Content-Type" : "application/json"}
         }).then( res => {
             console.log(res.data);
-            if(res.data == 3){
-                //    localStorage.setItem("userCookie", JSON.stringify(res.data))
-                localStorage.setItem("userCookie", JSON.stringify(obj))
-
+            if(res.data.result == 1){
+              //  localStorage.setItem("userCookie", JSON.stringify(obj))
+                console.log(res.data.accessToken)
                 navigate('/')
-
-            }else if(res.data == 1){
-                alert("존재하지 않는 아이디입니다.")
-            }else if(res.data == 2) {
-                alert("비밀번호를 다시 입력해주세요")
+            }else if(res.data.result == 2){
+                alert("ID does not exist")
+            }else if(res.data.result == 3) {
+                alert("Please re-enter your password")
             }
         })
 
     };
-
-/* >> spring security test
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(`id: ${loginId}, Password: ${password}`);
-
-        axios.post('http://localhost:8899/user/login', {
-            username : loginId,
-            password : password
-        }, {
-            //headers : {"Content-Type" : "application/json"}
-            headers : {"Content-Type" : "application/x-www-form-urlencoded"} //spring-security
-        }).then( res => {
-            console.log("data : " + res.data);
-
-        }).catch((e)  => console.log("e" + e))
-
-    };
-*/
     return (
         <>
         <div className="login-form">

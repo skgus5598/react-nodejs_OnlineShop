@@ -31,6 +31,10 @@ const SignUpForm = () => {
 
     const idCheck = () => {
         console.log("idCheck : " + loginId)
+        if(loginId == '' || loginId == undefined){
+            alert("Please enter your Id ")
+            return false;
+        }
         document.getElementById('tempDiv').remove();
 
         const html = document.createElement("div");
@@ -44,6 +48,7 @@ const SignUpForm = () => {
                 }else{
                     document.getElementById('idCheckBtn').value = 2;
                     html.innerHTML = "<span id='child' style=color:red><b>Already existed</b></span>"
+                    document.getElementById('id').focus();
                 }
                 document.getElementById('idCheckResult').append(html);
             }).catch(e => {
@@ -57,7 +62,8 @@ const SignUpForm = () => {
         console.log(`id : ${loginId}, Email: ${email}, Password: ${password}`);
         console.log(loginId +"/" + password +"/" + email)
         if( document.getElementById('idCheckBtn').value != 1) {
-            alert("아이디 중복확인을 해주세요")
+            alert("Please verify your Id duplicate")
+            document.getElementById('id').focus();
             return false;
         }else{
             axios.post('http://localhost:5000/user/signUp', {
@@ -65,16 +71,14 @@ const SignUpForm = () => {
                 userPwd : password,
                 userEmail : email
             }, {
-                headers : {
-                    "Content-Type" : "application/json"
-                }
+                headers : { "Content-Type" : "application/json" }
             }).then( res => {
                 console.log(res.data);
-                if(res.data.userId != null){
-                    alert("회원가입이 완료되었습니다. 로그인을 해주세요");
+                if(res.data.success == true){
+                    alert("SignUp Success! Please Login");
                     navigate('/login');
                 }else{
-                    alert("회원가입에 실패하였습니다.")
+                    alert("SignUp Failed")
                 }
             })
         }
