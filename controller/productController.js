@@ -24,6 +24,50 @@ const findAll = (req, res) => {
 
 };
 
+const getUploadListById = (req, res) => {
+    console.log('userId : ' , req.params.userId);
+    let param = req.params.userId;
+    sql = 'SELECT p.* ,'
+        +     'u.userId ,'
+        +     'u.userRegion ,'
+        +     'u.userArea ,'
+        +     '(SELECT ir.imgName '
+        +     'FROM imagesRepo ir '
+        +     'WHERE p.id = ir.pdId '
+        +     'LIMIT 1) as imgName '
+    + 'FROM products p '
+    + 'INNER JOIN users u ON u.userNo  = p.userNo '
+    + 'WHERE u.userNo = (SELECT userNo FROM users WHERE userId = ?)'
+    + 'ORDER BY p.id  DESC;';
+    connection.query(sql, param, (err, result) => {
+        if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
+        else res.send(result);
+    })
+
+}
+
+const deleteList = (req, res) => {
+    console.log('boardID : ', req.params.id);
+    let param = req.params.id;
+    sql = 'SELECT imgName as filename FROM imagesRepo WHERE pdId= ?'
+    connection.query(sql, param, (err, result) => {
+        if (err) console.log("query is not excuted. select imagesRepo fail!\n" + err);
+        else{
+            console.log("result imagename : ", result)
+            let files = result; 
+            sql = 'DELETE FROM products WHERE id = ?';
+            connection.query(sql, param, (err, result) => {
+              if (err) console.log("query is not excuted. deleteList fail!\n" + err);
+              else{
+                deleteImages(files);
+                res.send(result)
+              }
+            })  
+        }
+    })
+
+}
+
 const insertProduct = (req, res, err) => {
     console.log(req.files)
     if(!req.files){ return res.status(400).json({success:false, err}) };
@@ -88,4 +132,6 @@ const getImageNamesByPdId = (req, res) => {
 }
 
 
-module.exports = { findAll , insertProduct, getImageNamesByPdId}
+
+
+module.exports = { findAll , insertProduct, getImageNamesByPdId, getUploadListById, deleteList}

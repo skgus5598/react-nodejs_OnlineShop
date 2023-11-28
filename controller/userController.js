@@ -1,10 +1,9 @@
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 require("dotenv").config();
 
 const connection = require('../db_info');
-
-
+const {getAccessToken,  getRefreshToken } = require('../controller/auth');
 
 let sql = '';
 
@@ -36,29 +35,28 @@ const signUp = (req, res) => {
 
 const login = (req, res) => {
     let { userId, userPwd } = req.body;
-    sql = 'SELECT userId , userPwd FROM users WHERE userId = ?';
+    sql = 'SELECT userId , userPwd, userRegion, userArea FROM users WHERE userId = ?';
     connection.query(sql, userId, (err, result) => {
         if(err){
             console.log('query is not excuted. checkId fail!\n' + err);
             return res.json({success:false, err});
         }else{
             if(result.length > 0 && result[0].userPwd == userPwd){ //success
-                const ACCESS_TOKEN_SECRET  = process.env.ACCESS_TOKEN_SECRET;
-                const accessToken = jwt.sign(
-                    {userId},
-                    ACCESS_TOKEN_SECRET,
-                    {expiresIn : "15m"}
-                );
-                res.cookie("userToken", accessToken);
-                res.json({"result" : 1, accessToken});
-            }else if(result.length == 0){
-                res.json({"result" : 2 })
-            }else{
-                res.json({"result" : 3 })
-            }
-            
+                const { userPwd, ...others} = result[0];
+                let obj = {userId};
+                const accessToken = getAccessToken(obj);
+                const refreshToken = getRefreshToken(obj);
+                res.cookie("accessToken", accessToken);
+                res.cookie("refreshToken", refreshToken);
+                res.json({"result" : 1, "user" : others});
+            }else if(result.length == 0){ res.json({"result" : 2 })
+            }else{   res.json({"result" : 3 }) }       
         }
     })
 };
 
-module.exports = { checkId , signUp, login}
+const refreshToken = (req, res) => {
+
+}
+
+module.exports = { checkId , signUp, login, refreshToken}

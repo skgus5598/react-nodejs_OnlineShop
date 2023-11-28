@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './../style/LoginForm.css';
-import {useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import arrow from './../img/arrow.png';
 
@@ -34,13 +34,12 @@ const LoginForm = () => {
         axios.post('http://localhost:5000/user/login', {
             userId : loginId,
             userPwd : password
-        }, {
-            headers : {"Content-Type" : "application/json"}
-        }).then( res => {
+        },
+        { headers : {"Content-Type" : "application/json"} }
+        ).then( res => {
             console.log(res.data);
             if(res.data.result == 1){
-              //  localStorage.setItem("userCookie", JSON.stringify(obj))
-                console.log(res.data.accessToken)
+                localStorage.setItem("userCookie", JSON.stringify(res.data.user))
                 navigate('/')
             }else if(res.data.result == 2){
                 alert("ID does not exist")
@@ -79,9 +78,9 @@ const LoginForm = () => {
             </form>
             <br/>
             <label className='login-alink'> Don't you have an account?
-                <a href='' onClick={ () => {navigate('/signUp')}} style={{width : '100%'}}>
+                <Link to={'/signUp'}style={{width : '100%'}}>
                     <h2><img src={arrow} /> SIGN UP </h2>
-                </a>
+                </Link>
             </label>
         </div>
         </>

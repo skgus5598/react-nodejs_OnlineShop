@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './../style/LoginForm.css';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import arrow from './../img/arrow.png';
 
@@ -137,9 +137,9 @@ const SignUpForm = () => {
                 <button type="submit" style={{width : '100%'}}>REGISTER</button>
             </form>
             <label className='login-alink'> Already have an account?
-                <a href='' onClick={ () => {navigate('/login')}} style={{width : '100%'}}>
+                <Link to={'/login'} style={{width : '100%'}}>
                     <h2><img src={arrow} /> LOGIN </h2>
-                </a>
+                </Link>
             </label>
 
         </div>

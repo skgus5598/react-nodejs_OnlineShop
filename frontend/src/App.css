@@ -78,6 +78,14 @@
   color: #666666;
 }
 
+.headBtn1 img {
+  height: 30px;
+  padding-bottom: 5px;
+}
+.headBtn1:hover, .headBtn2:hover{
+  opacity: 0.5;
+}
+
 
 /*
    Product_details css
@@ -87,6 +95,7 @@
   padding-Top: 5%;
   padding-left: 20%;
   padding-right: 20%;
+  padding-bottom: 15%;
 }
 
 .row {
@@ -386,4 +395,134 @@
 .uploadBtn:hover{
   cursor: pointer;
   background-color: #6bd3c3;
+}
+
+
+.myPageSellerInfo {
+  padding-top: 5%;
+}
+
+.sellerInfo1{
+  width: 50%;
+}
+.sellerInfo2{
+  margin-top: 5%;
+  width: 50%;
+}
+
+.sellerInfo2 button {
+  border-radius: 5px;
+  /* border: solid 3px #81dacd;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle; */
+  text-align: center;
+  padding: 7px;
+  margin: auto;
+  background-color: #ffffff;
+  color: #666666
+}
+.sellerInfo2 button:hover {
+  opacity: 0.5;
+}
+
+.myPageSellerInfo {
+  width: 100%;
+  display: flex;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.menu {
+  display: flex;
+  text-align: center;
+}
+
+.menu1{
+  border: 1px solid gray;
+  border-radius: 12px;
+  width: 50%;
+  cursor: pointer;
+  margin-right: 10px;
+
+}
+.menu2{
+  border: 1px solid gray;
+  border-radius: 12px;
+  width: 50%;
+  cursor: pointer;
+  margin-left: 10px;
+
+}
+
+.menu :hover{
+  opacity: 0.5;
+}
+
+.menu img{
+  position: relative;
+  width: 90%;
+  height: 70%;
+}
+
+.controllBtn {
+  margin-left: 5%;
+  text-align: right;
+  width: 50%;
+  padding-top: 10px;
+}
+
+.controllBtn img{
+  width: 50px;
+  height: 50px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 7px;
+    margin: auto;
+    background-color: #ffffff;
+ 
+}
+
+.controllBtn img:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.backImg{
+  width: 50px;
+  padding: 7px;
+}
+.backImg:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.emptyList{
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 10%;
+  background-color: #F8F9FA;
+  /* background: url(./img/nodata.png); */
+}
+.emptyList img{
+  padding-top: 20%;
+  opacity: 0.3;
+}
+.emptyList h2{
+  opacity: 0.3;
+}
+
+.bumpBtn button{
+  width: 100%;
+  border-radius: 5px;
+    text-align: center;
+    padding: 7px;
+    margin: auto;
+    background-color: #ffffff;
+}
+
+.bumpBtn button:hover{
+  background-color: orange;
 }
