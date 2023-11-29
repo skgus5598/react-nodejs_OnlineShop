@@ -131,7 +131,47 @@ const getImageNamesByPdId = (req, res) => {
     })
 }
 
+const updateProduct = (req, res) => {
+    let { userNo,category, title, price, desc, filename, id } = req.body;
+    console.log('id : ', req.body.id);
+    console.log('title : ', req.body.title)
+    console.log('price : ', req.body.price)
+    console.log('desc : ', req.body.desc)
+    console.log('filename : ', req.body.filename)
+
+    let values = [title, desc, category, price, id]
+    console.log('values? ' , values);
+    sql = 'UPDATE products SET '
+                +'pd_title = ? ,'
+                +'pd_desc = ? ,'
+                +'pd_category = ? ,'
+                +'pd_price = ? '
+          +'WHERE id = ?  ;';
+    connection.query(sql, values, (err, result) => {
+        if (err) console.log("query is not excuted. UPDATE products fail!\n" + err);
+        else{
+            if(filename !== undefined){
+                sql = 'DELETE FROM imagesRepo WHERE pdId = ? AND imgName = ?';
+                values = [id, filename];
+                connection.query(sql, values, (err, result) => {
+                    if (err) {
+                        console.log("query is not excuted. DELETE imageRepo fail!\n" + err)
+                        connection.rollback();
+                        return res.json({success:false, err})
+                    }else{
+                        deleteImages(filename)
+                        //connection.commit();
+                        res.json({success:true, "result" : result});
+                }
+            })
+            }else{
+                res.json({success:true, "result" : result});
+            }
+            
+        }
+    })      
+}
 
 
 
-module.exports = { findAll , insertProduct, getImageNamesByPdId, getUploadListById, deleteList}
+module.exports = { findAll , insertProduct, getImageNamesByPdId, getUploadListById, deleteList, updateProduct}

@@ -35,7 +35,7 @@ const signUp = (req, res) => {
 
 const login = (req, res) => {
     let { userId, userPwd } = req.body;
-    sql = 'SELECT userId , userPwd, userRegion, userArea FROM users WHERE userId = ?';
+    sql = 'SELECT userNo, userId , userPwd, userRegion, userArea FROM users WHERE userId = ?';
     connection.query(sql, userId, (err, result) => {
         if(err){
             console.log('query is not excuted. checkId fail!\n' + err);

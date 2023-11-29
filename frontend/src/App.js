@@ -27,6 +27,7 @@ function App() {
         <Route path='/likedList' element={<LikedList />} />
         <Route path='/myUploadDetail' element={<MyUploadDetail />} />
 
+
         
       </Routes>
      

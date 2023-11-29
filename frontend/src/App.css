@@ -157,6 +157,64 @@
   border-radius: 12px;
 }
 
+
+.slider-item_b {
+  position: relative;
+  outline: none;
+  border-radius: 15px;
+  background: white;
+  overflow: hidden;
+  & .bg_hover {
+    background-color: rgba(0, 0, 0, 0.48);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: ease-in-out 0.2s;
+    opacity: 0;
+    border: 3px solid rgb(100, 100, 100);
+  }
+  & > div.bg_hover_text {
+    opacity: 0;
+    color: #fff;
+    padding: 8px;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    transition: ease-in-out 0.2s;
+  }
+  &:hover .bg_hover,
+  &:hover div.bg_hover_text {
+    opacity: 1;
+  }
+  & > img {
+    object-fit: cover;
+    transition: ease-in-out 0.25s;
+  }
+
+  &:hover > img {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+}
+.bg_hover_text .subimg{
+  width: 100px;
+}
+.bg_hover_text .subimg:hover{
+  cursor: pointer;
+}
+
+.slider-item_b .mainimg {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+.slider-item_b .mainimg:hover {
+  cursor: pointer;
+}
+
 .slick-dots {
   bottom: 550px;
 }
@@ -525,4 +583,13 @@
 
 .bumpBtn button:hover{
   background-color: orange;
+}
+
+.inputTextarea{
+  resize: vertical;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
 }

@@ -8,32 +8,34 @@ import deleteIcon from '../img/delete.png';
 import modifyIcon from '../img/modify.png';
 
 const MyUploadDetail = () => {
-
     let navigate = useNavigate();
     let location = useLocation();
     const data = { ...location.state };
     console.log("details data : " + JSON.stringify(data));
 
-    const deleteBtn = () => {
-        if(window.confirm('Do you want to delete this product?')){
-            axios.delete(`http://localhost:5000/deleteList/${data.id}`)
-            .then(res => {
-                navigate(-1)
-            });
-        } 
-    }
-    const modifyBtn = () => {
 
+    const deleteBtn = () => {
+        if (window.confirm('Do you want to delete this product?')) {
+            axios.delete(`http://localhost:5000/deleteList/${data.id}`)
+                .then(res => {
+                    navigate(-1)
+                });
+        }
+    }
+    const modifyBtn = () => {       
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'}); 
+        navigate('/upload', {state : data})
     }
 
     return (
 
         <div className="detailContainer" >
-            <img className='backImg' src={back} onClick={()=>{navigate(-1)}} />
-            <div className="row">
+            <img className='backImg' src={back} onClick={() => { navigate(-1) }} />
+             <div className="row">
                 <div>
                     <ImageSlide pdId={data.id} /><br />
-                    {/* <img src={`http://localhost:5000/images/${data.imgName}`} className="responsive-image" /> */}
                 </div>
             </div>
             <br />
@@ -44,11 +46,10 @@ const MyUploadDetail = () => {
                     <div>{data.userRegion} {data.userArea} </div>
                 </div>
                 <div className='controllBtn'>
-                    <img style={{marginRight:'10px'}} src={deleteIcon} onClick={ () => {deleteBtn()}}/>
-                    <img src={modifyIcon} onClick={ () => {modifyBtn()}} />
+                    <img src={modifyIcon} onClick={() => { modifyBtn() }} />
+                    <img style={{ marginLeft: '10px' }} src={deleteIcon} onClick={() => { deleteBtn() }} />
                 </div>
             </div>
-
             <hr />
             <div style={{ textAlign: "left" }}>
                 <h3>{data.pd_title}</h3>
@@ -58,11 +59,40 @@ const MyUploadDetail = () => {
                 <br /><br />
                 <span className='likeSpan'>like 30∙click 189</span>
             </div>
+
+
             <hr />
             <div className='bumpBtn'>
                 <button>Bring Up My Post</button>
-            </div>
+            </div> 
         </div>
     )
 }
+
+
+const ModifyForm = (props) => {
+    let [title, setTitle] = useState('');
+    let [price, setPrice] = useState('');
+    let [desc, setDesc] = useState('');
+
+    return (
+        <>
+            <div style={{ textAlign: "left" }}>
+                <div>
+                    <span>Title</span>
+                    <input type="text" placeholder="title" value={props.data.pd_title} onChange={(e) => { setTitle(e.target.value) }} />
+                </div>
+                <div>
+                    <span>Price</span>
+                    <input type="text" placeholder="£" value={props.data.pd_price} onChange={(e) => { setPrice(e.target.value) }} />
+                </div>
+                <div>
+                    <span>Description</span><br/>
+                    <textarea className='inputTextarea' placeholder="Description" value={props.data.pd_desc} onChange={(e) => { setDesc(e.target.value) }} />
+                </div>
+            </div>
+        </>
+    )
+}
+
 export default MyUploadDetail;
