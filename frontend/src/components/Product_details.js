@@ -5,7 +5,6 @@ import avatar from '../img/chicken.png';
 import ImageSlide from './ImageSlide';
 import axios from 'axios';
 
-
 const Product_details = () => {
   let [images, setImages] = useState([]);
 
@@ -37,6 +36,10 @@ const Product_details = () => {
             <div><b>{data.userId}</b></div>
             <div>{data.userRegion} {data.userArea} </div>
           </div>
+          <div>
+              like img
+          </div>
+          <div>send message img</div>
         </div>
         <hr />
         <div style={{ textAlign: "left" }}>

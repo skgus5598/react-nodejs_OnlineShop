@@ -1,6 +1,7 @@
 import bgimg from '../img/bg.png'
 import {useNavigate} from 'react-router-dom'
 import AllProducts from './AllProducts';
+import mainBanner from '../img/mainBanner.png';
 
 
 const Main = () => {
@@ -8,7 +9,7 @@ const Main = () => {
 
     return (
         <>
-            <div className='main-bg' style={{ backgroundImage: 'url(' + bgimg + ')' }} />
+            <div className='main-bg' style={{ backgroundImage: 'url(' + mainBanner + ')' }} />
             <div style={{ textAlign: "center", marginTop: "5%", marginBottom: "3%" }}><h1>Popular Items</h1></div>
             <div className='selectBox'>
                 <nav>
