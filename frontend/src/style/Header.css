@@ -55,6 +55,10 @@
   width: 80px;
   padding-right:5px; 
   padding-left:2%;
+  cursor: pointer;
+}
+.signinIcon:hover{
+  opacity: 0.5;
 }
 
 /*

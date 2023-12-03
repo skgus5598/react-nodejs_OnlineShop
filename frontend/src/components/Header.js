@@ -1,41 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faUser, faTimes, faPlus, faEnvelope, faHeart, faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEnvelope, faHeart, faHouseChimneyUser} from "@fortawesome/free-solid-svg-icons";
 import unknownUser from '../img/unknownUser.png';
 import '../style/Header.css'
 import mainlogo from '../img/mainlogo.png';
 import { useNavigate} from 'react-router-dom';
-import {useEffect, useState} from "react";
 import chicken from '../img/chicken.png';
+import { useDispatch, useSelector } from 'react-redux';
+import {  clearUser } from '../redux/userSlice.js';
 
 const Header = () => {
   let navigate = useNavigate();
-  let [user, setUser] = useState([]);
 
-  useEffect( () => {
-    const ifUser = localStorage.getItem("userCookie");
-    console.log("header ifuser : " + ifUser);
-    if(ifUser){
-        setUser(JSON.parse(ifUser));
-    }
-}, [])
+  let isLogin = useSelector( (state) => state.persistedReducer.user_rd.loginCheck);
+  let dispatch = useDispatch(); // send request to store.js(redux)
+
+  console.log("header islogin  :" + isLogin)
 
   const addBtn = () => {
-    if(user != ''){
-        navigate('/upload')
+    if(!isLogin){
+      navigate('/login')
     }else{
-        navigate('/login')
+      navigate('/upload')
     }
 };
 
 const logoutBtn = () => {
   if(window.confirm("Do you want to log out?")){
-      localStorage.removeItem("userCookie")
-      setUser('');
+      dispatch(clearUser());
       return navigate("/")
   }
 }
+
+
 
   return (
     <React.Fragment>
@@ -97,14 +95,19 @@ const logoutBtn = () => {
             </a>
           </div>
           {
-            user == '' || user == null
+            isLogin
               ? <>
-                  <img className="signinIcon" src={unknownUser} />
-                  <Button2 onClick={() => { navigate('/login')} } >   Sign in  </Button2>
+                  <img className="signinIcon" src={chicken} onClick={(e) => {
+                          window.scrollTo({
+                              top: 0,
+                              behavior: 'smooth'
+                        })
+                        return navigate('/myPage')}}/>
+                  <Button2 onClick={() => { logoutBtn()} } >   Sign out </Button2>
                 </>
               : <>
-                  <img className="signinIcon" src={chicken} />
-                  <Button2 onClick={() => { logoutBtn()} } >   Sign out </Button2>
+                  <img className="signinIcon" src={unknownUser} />
+                  <Button2 onClick={() => { navigate('/login')} } >   Sign in  </Button2>
                 </>
           }
           

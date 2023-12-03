@@ -3,8 +3,13 @@ import './../style/LoginForm.css';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import arrow from './../img/arrow.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../redux/userSlice.js';
 
 const LoginForm = () => {
+
+    let dispatch = useDispatch(); // send request to store.js(redux)
+
     const navigate = useNavigate();
 
     const [loginId, setLoginId] = useState('');
@@ -39,7 +44,7 @@ const LoginForm = () => {
         ).then( res => {
             console.log(res.data);
             if(res.data.result == 1){
-                localStorage.setItem("userCookie", JSON.stringify(res.data.user))
+                dispatch(setUser(res.data.user))
                 navigate('/')
             }else if(res.data.result == 2){
                 alert("ID does not exist")

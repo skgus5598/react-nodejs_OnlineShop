@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import nodata from '../img/nodata.png';
 import back from '../img/back.png';
+import { useSelector } from 'react-redux';
 
 const UploadList = () => {
     let navigate = useNavigate();
     const [list, setList] = useState([]);
+    let user_rd = useSelector( (state) => state.persistedReducer.user_rd); //redux
 
     useEffect( () => {
-        const user = JSON.parse(localStorage.getItem("userCookie"));
-        const userId = user.userId
+        const userId = user_rd.userId
         async function getUploadList(){
           const result = await axios.get(`http://localhost:5000/getUploadList/${userId}`, {
             headers : {"Content-Type" : "application/json"}

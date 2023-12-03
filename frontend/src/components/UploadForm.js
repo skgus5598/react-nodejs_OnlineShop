@@ -4,9 +4,11 @@ import FileUpload from "./FileUpload";
 import axios from "axios";
 import back from '../img/back.png';
 import ImageSlide from './ImageSlide';
+import { useSelector } from 'react-redux';
 
 const UploadForm = () => {
     let navigate = useNavigate();
+    let user_rd = useSelector( (state) => state.persistedReducer.user_rd);
 
     const [images, setImages] = useState();
     const [title, setTitle] = useState('');
@@ -15,14 +17,14 @@ const UploadForm = () => {
     const [category, setCategory] = useState('');
     const [pdId, setPdId] = useState('');
 
-    let [user, setUser] = useState([]);
+   // let [user, setUser] = useState([]);
 
     //modify data
     let location = useLocation();
     const modifyData = { ...location.state };
 
     useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem("userCookie")));
+        //setUser(JSON.parse(localStorage.getItem("userCookie")));
         if(modifyData.pd_title !== undefined){
             console.log("? : " + modifyData.pd_title)
             setTitle(modifyData.pd_title);
@@ -41,7 +43,7 @@ const UploadForm = () => {
         e.preventDefault();
         let body = {
             id : pdId,
-            userNo : user.userNo,
+            userNo : user_rd.userNo,
             category : category,
             title : title,
             price : price,
@@ -53,7 +55,7 @@ const UploadForm = () => {
 
         axios.put('http://localhost:5000/updateProduct', {
             id : pdId,
-            userNo : user.userNo,
+            userNo : user_rd.userNo,
             category : category,
             title : title,
             price : price,
@@ -73,7 +75,7 @@ const UploadForm = () => {
     const submitHandler = (e) => {
         e.preventDefault(); //submit이후 페이지 새로고침 방지
         let formdata = new FormData();
-        formdata.append("userNo", user.userNo) ; // test
+        formdata.append("userNo", user_rd.userNo) ; // test
         formdata.append("category", category) ;
         formdata.append("title", title)
         formdata.append("price", price)
