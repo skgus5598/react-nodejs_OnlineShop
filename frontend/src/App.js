@@ -6,10 +6,11 @@ import Header from './components/Header.js';
 import UploadForm from './components/UploadForm.js';
 import LoginForm from './components/LoginForm.js';
 import SignUpForm from './components/SignUpForm.js';
-import MyPage from './components/MyPage.js';
-import UploadList from './components/UploadList.js';
-import LikedList from './components/LikedList.js';
-import MyUploadDetail from './components/MyUploadDetail.js';
+import MyPage from './components/mypage/MyPage.js';
+import UploadList from './components/mypage/UploadList.js';
+import LikedList from './components/mypage/LikedList.js';
+import MyUploadDetail from './components/mypage/MyUploadDetail.js';
+import Profile from './components/mypage/Profile.js';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/myPage" element={<MyPage />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signUp" element={<SignUpForm />} />
         <Route path="/detail" element={<Product_details />} />

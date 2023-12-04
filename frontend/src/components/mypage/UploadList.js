@@ -1,9 +1,8 @@
 import {useNavigate} from 'react-router-dom'
-
+import listIcon from '../../img/list.png';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import nodata from '../img/nodata.png';
-import back from '../img/back.png';
+import nodata from '../../img/nodata.png';
 import { useSelector } from 'react-redux';
 
 const UploadList = () => {
@@ -29,7 +28,12 @@ const UploadList = () => {
     return (
         <>
         <div className='detailContainer'>
-        <img className='backImg' src={back} onClick={()=>{navigate(-1)}} />
+            <div className='mypage_headmenu' onClick={()=>{ navigate(-1)}} >
+                    <div>
+                        <h5>Upload History</h5>
+                        <img src={listIcon} />
+                    </div>
+            </div><br/>
             {
                 list == '' 
                 ? <div className='emptyList'>

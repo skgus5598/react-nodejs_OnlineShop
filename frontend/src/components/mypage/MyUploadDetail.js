@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import avatar from '../img/chicken.png';
-import ImageSlide from './ImageSlide';
+import avatar from '../../img/chicken.png';
+import ImageSlide from '../ImageSlide';
 import axios from 'axios';
-import back from '../img/back.png';
-import deleteIcon from '../img/delete.png';
-import modifyIcon from '../img/modify.png';
+import back from '../../img/back.png';
+import deleteIcon from '../../img/delete.png';
+import modifyIcon from '../../img/modify.png';
 
 const MyUploadDetail = () => {
     let navigate = useNavigate();
@@ -55,7 +55,15 @@ const MyUploadDetail = () => {
                 <h3>{data.pd_title}</h3>
                 <span>{data.pd_category}</span><br /><br />
                 <h4><b>£{data.pd_price}</b></h4>
-                <span>{data.pd_desc}</span>
+                {
+                    data.pd_desc.split("\r\n").map((line => {
+                        return(
+                            <span>{line}
+                            <br/>
+                            </span>
+                        )
+                    }))
+                }
                 <br /><br />
                 <span className='likeSpan'>like 30∙click 189</span>
             </div>

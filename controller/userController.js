@@ -59,4 +59,16 @@ const refreshToken = (req, res) => {
 
 }
 
-module.exports = { checkId , signUp, login, refreshToken}
+const getUserInfo = (req, res) => {
+    sql = 'SELECT * FROM users WHERE userNo = ?';
+    let param = req.params.userNo;
+    console.log('param : ' , param);
+    connection.query(sql, param, (err, result) => {
+        console.log('result : ' , result) //If exist 1 , if not 0
+        const { userPwd, ...others} = result[0];
+        if (err) console.log("query is not excuted. getUserInfo fail!\n" + err);
+        else res.send(others);
+    })
+}
+
+module.exports = { checkId , signUp, login, refreshToken, getUserInfo}

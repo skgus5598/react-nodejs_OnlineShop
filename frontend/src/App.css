@@ -3,6 +3,7 @@
 */
 
 *{
+  font-family: 'Signika Negative', sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -457,9 +458,7 @@
 }
 
 
-.myPageSellerInfo {
-  padding-top: 5%;
-}
+
 
 .sellerInfo1{
   width: 50%;
@@ -494,49 +493,75 @@
 }
 
 .menu {
-  display: flex;
+  flex-flow: column;
   text-align: center;
+}
+.menu h5{
+  font-size: x-large;
 }
 
 .menu div {
-  border: 1px solid gray;
-  border-radius: 12px;
+  border-bottom: 1px solid rgb(169, 168, 168);
   cursor: pointer;
   margin-right: 10px;
   width: 100%;
   height: 200px;
   padding-top: 30px;
 }
-/*
-.menu1{
-  border: 1px solid gray;
-  border-radius: 12px;
-  width: 50%;
-  cursor: pointer;
-  margin-right: 10px;
-
-}
-.menu2{
-  border: 1px solid gray;
-  border-radius: 12px;
-  width: 50%;
-  cursor: pointer;
-  margin-left: 10px;
-}
-*/
 .menu :hover{
   opacity: 0.5;
 }
 
 .menu img{
   position: relative;
-  width: 100px;
   height: 120px;
 }
 
+.mypage_headmenu div{
+  border-bottom: 1px solid rgb(169, 168, 168);
+  margin-right: 10px;
+  width: 100%;
+  height: 200px;
+  padding-top: 30px;
+}
+.mypage_headmenu img{
+  position: relative;
+  height: 120px;
+}
+.mypage_headmenu h5{
+  font-size: x-large;
+}
+
+.mypage_headmenu{
+  cursor: pointer;
+  flex-flow: column;
+  text-align: center;
+}
+.mypage_headmenu:hover{
+  opacity: 0.5;
+}
+
+.profile_form{
+  padding-right: 15%;
+  padding-left: 15%;
+  padding-top: 5%;
+}
+.profile_save_btn{
+  width: 100%;
+    border-radius: 5px;
+    border: solid 3px #81dacd;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    padding: 7px;
+    height: 40px;
+    background-color: #81dacd;
+    color: #666666;
+}
+
 .controllBtn {
-  margin-left: 5%;
-  text-align: right;
   width: 50%;
   padding-top: 10px;
 }
