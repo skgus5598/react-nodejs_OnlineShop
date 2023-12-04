@@ -23,6 +23,31 @@ const findAll = (req, res) => {
     })
 
 };
+const getListByCity = (req, res) => {
+    console.log('param : ' , req.params.param);
+    let param = req.params.param;
+    sql = 'SELECT p.* ,'
+        +     'u.userId ,'
+        +     'u.userRegion ,'
+        +     'u.userArea ,'
+        +     '(SELECT ir.imgName '
+        +     'FROM imagesRepo ir '
+        +     'WHERE p.id = ir.pdId '
+        +     'LIMIT 1) as imgName '
+    + 'FROM products p '
+    + 'INNER JOIN users u ON u.userNo  = p.userNo '
+    if(param == 0){
+         sql += 'ORDER BY p.id  DESC;';
+    }else{
+       sql += 'WHERE u.userRegion = ? '
+       sql += 'ORDER BY p.id  DESC;';
+    }
+    connection.query(sql, param, (err, result) => {
+        console.log("action sql : ", sql)
+        if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
+        else res.send(result);
+    })
+}
 
 const getUploadListById = (req, res) => {
     console.log('userId : ' , req.params.userId);
@@ -43,7 +68,6 @@ const getUploadListById = (req, res) => {
         if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
         else res.send(result);
     })
-
 }
 
 const deleteList = (req, res) => {
@@ -174,4 +198,4 @@ const updateProduct = (req, res) => {
 
 
 
-module.exports = { findAll , insertProduct, getImageNamesByPdId, getUploadListById, deleteList, updateProduct}
+module.exports = { findAll , insertProduct, getImageNamesByPdId, getUploadListById, deleteList, updateProduct, getListByCity}

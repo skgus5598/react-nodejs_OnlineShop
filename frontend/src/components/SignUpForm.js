@@ -69,7 +69,8 @@ const SignUpForm = () => {
             axios.post('http://localhost:5000/user/signUp', {
                 userId : loginId,
                 userPwd : password,
-                userEmail : email
+                userEmail : email,
+                nickname : nickName
             }, {
                 headers : { "Content-Type" : "application/json" }
             }).then( res => {
@@ -115,7 +116,7 @@ const SignUpForm = () => {
                             id="nicknamee"
                             value={nickName}
                             onChange={handleNicknameChange}
-                            disabled />
+                        />
                     </div>
                     <label htmlFor="email">Email</label>
                     <input

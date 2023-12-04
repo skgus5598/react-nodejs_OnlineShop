@@ -92,6 +92,7 @@
 /*
    Product_details css
 */
+
 .detailContainer {
   flex-Flow: column;
   padding-Top: 5%;
@@ -264,7 +265,7 @@
 }
 
 .selectBox select {
-  width: 160px;
+  width: 27%;
   margin-left: 8px;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -278,7 +279,7 @@
   font-size: 17px;
   letter-spacing: -0.6px;
   text-align: left;
-  background: #f9f2f2 url(https://d1unjqcospf8gs.cloudfront.net/assets/home/articles/icon-arrow-down-ea33c4b4c74ce0aca95580c70c5ba1f464ff5833213b0fc8db5de0fab98b57e1.svg) no-repeat 89% 50%;
+  background: #fdfff5 url(https://d1unjqcospf8gs.cloudfront.net/assets/home/articles/icon-arrow-down-ea33c4b4c74ce0aca95580c70c5ba1f464ff5833213b0fc8db5de0fab98b57e1.svg) no-repeat 89% 50%;
 }
 
 /*
@@ -293,10 +294,12 @@
 
 .cardsWrap {
   display: flex;
-  justify-content: normal;
+  justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
   margin: 0 auto;
+  padding-right: 3%;
+  
 
 }
 
@@ -558,9 +561,23 @@
     padding: 7px;
     height: 40px;
     background-color: #81dacd;
-    color: #666666;
 }
-
+.profile_save_btn:hover{
+  opacity: 0.5;
+}
+.profile_save_btn_ds{
+  width: 100%;
+  border-radius: 5px;
+  border: solid 3px #da9c81;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  padding: 7px;
+  height: 40px;
+  background-color: #da9c81;
+}
 .controllBtn {
   width: 50%;
   padding-top: 10px;

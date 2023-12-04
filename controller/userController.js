@@ -19,10 +19,10 @@ const checkId = (req, res) => {
 };
 
 const signUp = (req, res) => {
-    let { userId, userPwd, userEmail } = req.body;
-    let values = [userId, userPwd, userEmail];
+    let { userId, userPwd, userEmail, nickName } = req.body;
+    let values = [userId, userPwd, userEmail, nickName];
     console.log('values : ' , values)
-    sql = 'INSERT INTO users(userId, userPwd, userEmail) VALUES(?, ?, ? );';
+    sql = 'INSERT INTO users(userId, userPwd, userEmail, nickname) VALUES(?, ?, ?, ? );';
     connection.query(sql, values, (err, result) => {
         if(err){
             console.log('query is not excuted. checkId fail!\n' + err);
@@ -57,7 +57,7 @@ const login = (req, res) => {
 
 const refreshToken = (req, res) => {
 
-}
+}   
 
 const getUserInfo = (req, res) => {
     sql = 'SELECT * FROM users WHERE userNo = ?';
@@ -71,4 +71,24 @@ const getUserInfo = (req, res) => {
     })
 }
 
-module.exports = { checkId , signUp, login, refreshToken, getUserInfo}
+const updateUser = (req, res) => {
+    let { userNo, nickname, email, city, town } = req.body;
+    let values = [nickname, email, city, town, userNo];
+    console.log('values : ' , values)
+    sql = 'UPDATE users SET '
+                + 'nickname = ?, '
+                + 'userEmail = ?, '
+                + 'userRegion = ?, '
+                + 'userArea = ? '
+        + 'WHERE userNo = ? ;';
+    connection.query(sql, values, (err, result) => {
+        if(err){
+            console.log('query is not excuted. updateUser fail!\n' + err);
+            return res.json({success:false, err});
+        }else{
+            res.json({success:true, "result" : result});
+        }
+    })
+};
+
+module.exports = { checkId , signUp, login, refreshToken, getUserInfo, updateUser}

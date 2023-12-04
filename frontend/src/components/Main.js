@@ -4,23 +4,15 @@ import AllProducts from './AllProducts';
 import mainBanner from '../img/mainBanner.png';
 
 
+
 const Main = () => {
     let navigate = useNavigate();
+   
 
     return (
         <>
             <div className='main-bg' style={{ backgroundImage: 'url(' + mainBanner + ')' }} />
-            <div style={{ textAlign: "center", marginTop: "5%", marginBottom: "3%" }}><h1>Popular Items</h1></div>
-            <div className='selectBox'>
-                <nav>
-                    <select>
-                        <option>select city</option>
-                    </select>
-                    <select>
-                        <option>select area</option>
-                    </select>
-                </nav>
-            </div>
+            
             <div className='itemLists'>
                 <AllProducts/>
             </div>

@@ -1,10 +1,13 @@
 
+
 CREATE TABLE users(
 	userNo int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	userId varchar(20) NOT NULL,
 	userPwd varchar(20) NOT NULL,
-	userRegion varchar(20),
-	userArea varchar(20)
+	userEmail varchar(20) NOT NULL,
+	userRegion varchar(100),
+	userArea varchar(20),
+	insert_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 
