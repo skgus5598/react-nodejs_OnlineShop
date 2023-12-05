@@ -2,8 +2,9 @@ import {useNavigate} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { cities, londonTowns, manchesterTowns, categories } from './SelectAreaObj';
+import nodata from '../img/nodata.png';
 
-const MoreProducts = () => {
+const AllProducts = () => {
   let navigate = useNavigate();
   let [data, setData] = useState([]);
 
@@ -11,17 +12,16 @@ const MoreProducts = () => {
   const [town, setTown] = useState('0');
   const [category, setCategory] = useState('0');
 
+  const [noItem, setNoItem] = useState(false);
+
 
   useEffect( () => {
     async function getAllProducts(){
       const result = await axios.get('http://localhost:5000/getList', {
         headers : {"Content-Type" : "application/json"}
       }).then( (res => {
-        console.log("res.data : " + JSON.stringify(res.data));
         setData(res.data)
-      })).catch((err) => {
-        console.log("axios err : " +  err)
-      })
+      })).catch((err) => { console.log(err)    })
     }
     getAllProducts();
   }, []);
@@ -56,9 +56,7 @@ const MoreProducts = () => {
       getListByParam(paramObj)
   }
 
-  const getListByParam = (paramObj) => {
-    console.log("paramobj : " + JSON.stringify(paramObj));
-    
+  const getListByParam = (paramObj) => {    
     axios.post('http://localhost:5000/getListByParam', {
         category : paramObj.category,
         city : paramObj.city,
@@ -66,14 +64,19 @@ const MoreProducts = () => {
     },
       { headers : {"Content-Type" : "application/json"}}
     ).then((res) => {
-        console.log("? :" + JSON.stringify(res.data))
-        setData(res.data);
+        if(res.data == ''){
+          setNoItem(true);
+        }else{
+          setData(res.data);
+          setNoItem(false);
+        }
+        
       }).catch((e) => console.log(e));
   }
 
     return(
         <>
-        <div style={{ textAlign: "center", marginTop: "5%", marginBottom: "3%" }}><h1>Popular Items</h1></div>
+        <div style={{ textAlign: "center", marginTop: "5%", marginBottom: "3%", color:'#fc4103' }}><h1><i>Search for Items around you!</i></h1></div>
             <div className='selectBox'>
                 <nav>
                     <select onChange={onChangeCategoryHandler} id="category" value={category}>
@@ -108,8 +111,13 @@ const MoreProducts = () => {
             </div>
         <div className='Allproducts'>
           
-          <br/>
-          <div className='cardsWrap'>
+          {
+            noItem  
+            ? <div className='emptyList'>
+                <img src={nodata} />
+                <h2>Couldn't find any Items</h2>
+              </div> 
+            : <div className='cardsWrap'>
             {
               data.map( (e, i) => {
                 return(
@@ -121,7 +129,6 @@ const MoreProducts = () => {
                         })
                         return navigate('/detail', {state : data[i]})}}>
                       <div className='cardPhoto'>
-                        {/* <img src='https://codingapple1.github.io/shop/shoes1.jpg' /> */}
                         <img src={`http://localhost:5000/images/${e.imgName}`} />
                       </div>
                       <div className='cardDesc'>
@@ -135,10 +142,11 @@ const MoreProducts = () => {
                 )
               })
             }
-          </div>
+            </div>
+            }
         </div>
         </>
     )
 }
 
-export default MoreProducts;
+export default AllProducts;

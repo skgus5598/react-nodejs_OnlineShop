@@ -24,10 +24,10 @@ const findAll = (req, res) => {
 
 };
 
+
 const getListByParam = (req, res) => {
     console.log('param : ' , req.body);
     let { category, city, town } = req.body;
-    console.log("category : " + category+ " city : " , city +"/ town : " , town);
     let conditions = '';
     if(category != 0){
         conditions += `AND p.pd_category = '${category}' `
@@ -38,7 +38,6 @@ const getListByParam = (req, res) => {
             conditions += `AND u.userArea = '${town}' `
         }
     }
-   // let param = req.params.param;
     sql = 'SELECT p.* ,'
         +     'u.userId ,'
         +     'u.userRegion ,'
@@ -50,15 +49,11 @@ const getListByParam = (req, res) => {
         + 'FROM products p '
         + 'INNER JOIN users u ON u.userNo  = p.userNo '
         + 'WHERE 1=1 '
-    if(conditions != ''){
-        sql += conditions
-    }
-    
+    if(conditions != ''){   sql += conditions  }
     sql += 'ORDER BY p.id  DESC;';
 
     connection.query(sql, (err, result) => {
         console.log("action sql : ", sql);
-        console.log("result: ", result)
         if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
         else res.send(result);
     })
@@ -84,7 +79,27 @@ const getUploadListById = (req, res) => {
         else res.send(result);
     })
 }
-
+const getListByKeyword = (req, res) => {
+    console.log('keyword : ' , req.params.keyword);
+    let keyword = req.params.keyword;
+    sql = 'SELECT p.* ,'
+        +     'u.userId ,'
+        +     'u.userRegion ,'
+        +     'u.userArea ,'
+        +     '(SELECT ir.imgName '
+        +     'FROM imagesRepo ir '
+        +     'WHERE p.id = ir.pdId '
+        +     'LIMIT 1) as imgName '
+    + 'FROM products p '
+    + 'INNER JOIN users u ON u.userNo  = p.userNo '
+    + 'WHERE 1=1 '
+    + `AND p.pd_title LIKE '%${keyword}%' OR p.pd_desc LIKE '%${keyword}%' `
+    + 'ORDER BY p.id  DESC;';
+    connection.query(sql,(err, result) => {
+        if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
+        else res.send(result);
+    })
+}
 const deleteList = (req, res) => {
     console.log('boardID : ', req.params.id);
     let param = req.params.id;
@@ -210,4 +225,4 @@ const updateProduct = (req, res) => {
 
 module.exports = { findAll , insertProduct, getImageNamesByPdId, 
                     getUploadListById, deleteList, updateProduct, 
-                    getListByParam}
+                    getListByParam, getListByKeyword}

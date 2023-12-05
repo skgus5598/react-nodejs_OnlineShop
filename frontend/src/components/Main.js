@@ -7,12 +7,9 @@ import mainBanner from '../img/mainBanner.png';
 
 const Main = () => {
     let navigate = useNavigate();
-   
-
     return (
         <>
             <div className='main-bg' style={{ backgroundImage: 'url(' + mainBanner + ')' }} />
-            
             <div className='itemLists'>
                 <AllProducts/>
             </div>

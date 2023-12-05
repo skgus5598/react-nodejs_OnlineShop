@@ -11,6 +11,7 @@ import UploadList from './components/mypage/UploadList.js';
 import LikedList from './components/mypage/LikedList.js';
 import MyUploadDetail from './components/mypage/MyUploadDetail.js';
 import Profile from './components/mypage/Profile.js';
+import SearchProducts from './components/SearchProducts.js';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path='/uploadList' element={<UploadList />} />
         <Route path='/likedList' element={<LikedList />} />
         <Route path='/myUploadDetail' element={<MyUploadDetail />} />
+        <Route path='/searchProducts' element={<SearchProducts />} />
 
 
         

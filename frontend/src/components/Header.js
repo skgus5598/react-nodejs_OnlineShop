@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEnvelope, faHeart, faHouseChimneyUser} from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +16,8 @@ const Header = () => {
   let isLogin = useSelector( (state) => state.persistedReducer.user_rd.loginCheck);
   let dispatch = useDispatch(); // send request to store.js(redux)
 
+  let [keyword, setKeyword] = useState('');
+
   console.log("header islogin  :" + isLogin)
 
   const addBtn = () => {
@@ -32,8 +34,9 @@ const logoutBtn = () => {
       return navigate("/")
   }
 }
-
-
+const searchHandler = (e) => {
+   setKeyword(e.currentTarget.value);
+}
 
   return (
     <React.Fragment>
@@ -57,12 +60,12 @@ const logoutBtn = () => {
             ></Image>
             <InputWrap>
               <div className="headerInput">
-                
-                <Input placeholder="Search for anything"></Input>
+                <Input value={keyword} onChange={searchHandler} placeholder="Search for anything"></Input>
                 <img
                   style={{ marginRight: "10px", cursor: "pointer" }}
                   src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base/header/search-icon-7008edd4f9aaa32188f55e65258f1c1905d7a9d1a3ca2a07ae809b5535380f14.svg"
-                ></img>
+                  onClick={ () => { navigate('/searchProducts', { state: keyword})}}
+               />
               </div>
             </InputWrap>
           </div>
