@@ -2,7 +2,7 @@
 second-hand online shop
 
 # Brief summary of upcoming project (in progress) 👇 
-![screencapture-localhost-3000-2023-12-04-12_43_45](https://github.com/skgus5598/react-nodejs_OnlineShop/assets/78111263/a4d58acc-1590-4d0f-a6f8-ec6f5a881e99)
+![screencapture-localhost-3000-2023-12-05-21_47_17](https://github.com/skgus5598/react-nodejs_OnlineShop/assets/78111263/05dd5a52-11bc-4b00-bc8f-ebdd5aeb0a91)
 
 
 Welcome to my Second-Hand Online Shop project! This application facilitates buying and selling of second-hand items. Users can browse available items, contact sellers directly, and make arrangements for purchasing offline near their town.
