@@ -14,9 +14,11 @@ const SearchProducts = () => {
  
   useEffect(() => {
     let keyword = state;
-    async function getAllProducts() {
-      const result = await axios.get(`http://localhost:5000/getList/${keyword}`, {
-        headers: { "Content-Type": "application/json" }
+    async function getListByKeyword() {
+      const result = await axios.get(`http://localhost:5000/getListByParam_b`, {
+        params:{
+          keyword: keyword
+        }
       }).then((res => {
         if(res.data == ''){
           setNoItem(true);
@@ -26,7 +28,7 @@ const SearchProducts = () => {
         }
       })).catch((err) => { console.log(err) })
     }
-    getAllProducts();
+    getListByKeyword();
   }, [state]);
 
 

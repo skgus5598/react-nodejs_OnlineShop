@@ -57,7 +57,7 @@ const AllProducts = () => {
   }
 
   const getListByParam = (paramObj) => {    
-    axios.post('http://localhost:5000/getListByParam', {
+    axios.post('http://localhost:5000/getListByParam_a', {
         category : paramObj.category,
         city : paramObj.city,
         town : paramObj.town
@@ -76,7 +76,7 @@ const AllProducts = () => {
 
     return(
         <>
-        <div style={{ textAlign: "center", marginTop: "5%", marginBottom: "3%", color:'#fc4103' }}><h1><i>Search for Items around you!</i></h1></div>
+        <div style={{ textAlign: "center", marginTop: "2%", marginBottom: "2%", color:'#666666' }}><h1>Search for Items around you</h1></div>
             <div className='selectBox'>
                 <nav>
                     <select onChange={onChangeCategoryHandler} id="category" value={category}>
@@ -144,6 +144,9 @@ const AllProducts = () => {
             }
             </div>
             }
+            <div style={{textAlign:'center', paddingBottom:'100px'}}>
+              <button className='moreBtn'>more</button>
+            </div>
         </div>
         </>
     )

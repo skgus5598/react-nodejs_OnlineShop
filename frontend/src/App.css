@@ -660,3 +660,22 @@
     border-radius: 3px;
     margin-bottom: 10px;
 }
+
+.moreBtn{
+  width: 100px;
+    border-radius: 5px;
+    border: solid 1px #ffdcc5;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #ffdcc5;
+    color: #666666;
+}
+
+.footer{
+  background:#22222221;
+    padding: 18px 24px;
+
+}

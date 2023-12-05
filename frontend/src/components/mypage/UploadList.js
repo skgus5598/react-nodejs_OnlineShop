@@ -12,17 +12,18 @@ const UploadList = () => {
 
     useEffect( () => {
         const userId = user_rd.userId
-        async function getUploadList(){
-          const result = await axios.get(`http://localhost:5000/getUploadList/${userId}`, {
-            headers : {"Content-Type" : "application/json"}
+        async function getListByUserId(){
+          const result = await axios.get(`http://localhost:5000/getListByParam_b/`, {
+            params: {
+                userId : userId
+            }
           }).then( (res => {
-            console.log("res.data : " + JSON.stringify(res.data));
-            setList(res.data)
+                 setList(res.data)
           })).catch((err) => {
-            console.log("axios err : " +  err)
+            console.log(err)
           })
         }
-        getUploadList();
+        getListByUserId();
  }, []);
 
     return (

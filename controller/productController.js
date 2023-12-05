@@ -5,7 +5,6 @@ const fs = require('fs');
 let sql = '';
 
 const findAll = (req, res) => {
-   // sql = 'SELECT DISTINCT  a.*, b.userId, b.userRegion,b.userArea FROM products a, users b WHERE a.userNo = b.userNo;';
     sql = 'SELECT p.* ,'
             +     'u.userId ,'
             +     'u.userRegion ,'
@@ -24,8 +23,8 @@ const findAll = (req, res) => {
 
 };
 
-
-const getListByParam = (req, res) => {
+//post 
+const getListByParam_a = (req, res) => {
     console.log('param : ' , req.body);
     let { category, city, town } = req.body;
     let conditions = '';
@@ -59,29 +58,10 @@ const getListByParam = (req, res) => {
     })
 }
 
-const getUploadListById = (req, res) => {
-    console.log('userId : ' , req.params.userId);
-    let param = req.params.userId;
-    sql = 'SELECT p.* ,'
-        +     'u.userId ,'
-        +     'u.userRegion ,'
-        +     'u.userArea ,'
-        +     '(SELECT ir.imgName '
-        +     'FROM imagesRepo ir '
-        +     'WHERE p.id = ir.pdId '
-        +     'LIMIT 1) as imgName '
-    + 'FROM products p '
-    + 'INNER JOIN users u ON u.userNo  = p.userNo '
-    + 'WHERE u.userNo = (SELECT userNo FROM users WHERE userId = ?)'
-    + 'ORDER BY p.id  DESC;';
-    connection.query(sql, param, (err, result) => {
-        if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
-        else res.send(result);
-    })
-}
-const getListByKeyword = (req, res) => {
-    console.log('keyword : ' , req.params.keyword);
-    let keyword = req.params.keyword;
+//get :id & :keyword
+const getListByParam_b = (req, res) => {
+    const { userId, keyword }  = req.query;
+    console.log('getListByParam_b(params) : ' , req.query);
     sql = 'SELECT p.* ,'
         +     'u.userId ,'
         +     'u.userRegion ,'
@@ -93,8 +73,14 @@ const getListByKeyword = (req, res) => {
     + 'FROM products p '
     + 'INNER JOIN users u ON u.userNo  = p.userNo '
     + 'WHERE 1=1 '
-    + `AND p.pd_title LIKE '%${keyword}%' OR p.pd_desc LIKE '%${keyword}%' `
-    + 'ORDER BY p.id  DESC;';
+    if(userId != null || userId != undefined){
+        sql += `AND u.userNo = (SELECT userNo FROM users WHERE userId = '${userId}' ) `
+    }
+    if(keyword != null || keyword != undefined){
+        sql += `AND p.pd_title LIKE '%${keyword}%' OR p.pd_desc LIKE '%${keyword}%' `
+    }
+    sql+= 'ORDER BY p.id  DESC;';
+
     connection.query(sql,(err, result) => {
         if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
         else res.send(result);
@@ -224,5 +210,5 @@ const updateProduct = (req, res) => {
 
 
 module.exports = { findAll , insertProduct, getImageNamesByPdId, 
-                    getUploadListById, deleteList, updateProduct, 
-                    getListByParam, getListByKeyword}
+                     deleteList, updateProduct, 
+                    getListByParam_a, getListByParam_b}

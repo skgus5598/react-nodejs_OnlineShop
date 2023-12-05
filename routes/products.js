@@ -16,21 +16,16 @@ const storage = multer.diskStorage({
 const upload = multer({storage : storage});
 
 
-
-
-
-
 const {findAll, insertProduct, getImageNamesByPdId, 
-       getUploadListById, deleteList, updateProduct, 
-       getListByParam, getListByKeyword} = require('../controller/productController');
+        deleteList, updateProduct, 
+        getListByParam_a, getListByParam_b} = require('../controller/productController');
 
 router.get('/getList', findAll);
 
 router.post('/upload', upload.array('file'), insertProduct);
 
-router.get('/getUploadList/:userId',getUploadListById )
-router.post('/getListByParam/',getListByParam);
-router.get('/getList/:keyword', getListByKeyword);
+router.post('/getListByParam_a/',getListByParam_a);
+router.get('/getListByParam_b/', getListByParam_b);
 
 router.get('/getImageNames/:pdId', getImageNamesByPdId);
 router.delete('/deleteList/:id', deleteList);

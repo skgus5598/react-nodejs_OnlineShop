@@ -12,6 +12,7 @@ import LikedList from './components/mypage/LikedList.js';
 import MyUploadDetail from './components/mypage/MyUploadDetail.js';
 import Profile from './components/mypage/Profile.js';
 import SearchProducts from './components/SearchProducts.js';
+import  Footer  from './components/layout/Footer.js';
 
 function App() {
   return (
@@ -31,9 +32,8 @@ function App() {
         <Route path='/myUploadDetail' element={<MyUploadDetail />} />
         <Route path='/searchProducts' element={<SearchProducts />} />
 
-
-        
       </Routes>
+      <Footer/>
      
 
     </div>

@@ -13,7 +13,6 @@ const Main = () => {
             <div className='itemLists'>
                 <AllProducts/>
             </div>
-            <button>more</button>
         </>
     )
 }
