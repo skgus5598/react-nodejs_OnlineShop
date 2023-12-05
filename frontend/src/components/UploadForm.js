@@ -5,6 +5,7 @@ import axios from "axios";
 import back from '../img/back.png';
 import ImageSlide from './ImageSlide';
 import { useSelector } from 'react-redux';
+import { categories } from './SelectAreaObj';
 
 const UploadForm = () => {
     let navigate = useNavigate();
@@ -14,7 +15,7 @@ const UploadForm = () => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [desc, setDesc] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState('Home & Living'); //default value set
     const [pdId, setPdId] = useState('');
 
    // let [user, setUser] = useState([]);
@@ -74,6 +75,7 @@ const UploadForm = () => {
 
     const submitHandler = (e) => {
         e.preventDefault(); //submit이후 페이지 새로고침 방지
+        console.log("cate : " + category)
         let formdata = new FormData();
         formdata.append("userNo", user_rd.userNo) ; // test
         formdata.append("category", category) ;
@@ -98,18 +100,13 @@ const UploadForm = () => {
         }).catch((err) => {
             alert("Server ERROR " , err )
         })      
+        
     }
-/* <Select>
-    const Continents= [
-        {key:1, value:"Africa"},
-        {key:2, value:"Asia"},
-        {key:3, value:"America"},
-        {key:4, value:"Europe"},
-        {key:5, value:"Austrailia"},
-        {key:6, value:"North America"},
-        {key:7, value:"South America"},  
-    ]
-*/
+
+    const categoryChangeHandler=(e)=>{
+        setCategory(e.currentTarget.value);
+    }
+
     return (
         <>
             <div className="detailContainer" >
@@ -136,7 +133,11 @@ const UploadForm = () => {
                         </div>
                         <div>
                             <span>Category</span>
-                            <input type="text" placeholder="category" value={category} onChange={(e) => { setCategory(e.target.value) }} />
+                             <select onChange={categoryChangeHandler} value={category}>
+                                    {categories.map(item =>(
+                                            <option key={item.key} value={item.value}>{item.value}</option>
+                                    ))}
+                            </select><br/>
                         </div>
                         <div>
                             <span>Price</span>
@@ -146,11 +147,7 @@ const UploadForm = () => {
                             <span>Description</span>
                             <textarea placeholder="Description" value={desc} onChange={(e) => { setDesc(e.target.value) }} />
                         </div>
-                        {/* <select onChange={continentChangeHandler} value={Continent}>
-                            {Continents.map(item =>(
-                                    <option key={item.key} value={item.key}>{item.value}</option>
-                            ))}
-                        </select> */}
+                       
                     </div>
                     {
                         modifyData.pd_title !== undefined

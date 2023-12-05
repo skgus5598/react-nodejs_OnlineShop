@@ -388,6 +388,15 @@
   margin: 10px 20px;
   font-size:x-large;
 }
+.uploadRow select{
+  border-radius: 5px;
+  border: solid 1px #81dacd;
+  text-decoration: none;
+  height: 40px;
+  box-sizing: border-box;
+  margin: 10px 20px;
+  width: 100%;
+}
 .uploadRow input {
   border-radius: 5px;
   border: solid 1px #81dacd;

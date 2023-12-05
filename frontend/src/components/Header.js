@@ -57,10 +57,7 @@ const logoutBtn = () => {
             ></Image>
             <InputWrap>
               <div className="headerInput">
-                <Select>
-                  <option value='none'>Categories</option>
-                  <option>2</option>
-                </Select>
+                
                 <Input placeholder="Search for anything"></Input>
                 <img
                   style={{ marginRight: "10px", cursor: "pointer" }}

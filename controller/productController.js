@@ -23,9 +23,22 @@ const findAll = (req, res) => {
     })
 
 };
-const getListByCity = (req, res) => {
-    console.log('param : ' , req.params.param);
-    let param = req.params.param;
+
+const getListByParam = (req, res) => {
+    console.log('param : ' , req.body);
+    let { category, city, town } = req.body;
+    console.log("category : " + category+ " city : " , city +"/ town : " , town);
+    let conditions = '';
+    if(category != 0){
+        conditions += `AND p.pd_category = '${category}' `
+    }
+    if(city != 0){
+        conditions += `AND u.userRegion = '${city}' `
+        if(town != 0){
+            conditions += `AND u.userArea = '${town}' `
+        }
+    }
+   // let param = req.params.param;
     sql = 'SELECT p.* ,'
         +     'u.userId ,'
         +     'u.userRegion ,'
@@ -34,16 +47,18 @@ const getListByCity = (req, res) => {
         +     'FROM imagesRepo ir '
         +     'WHERE p.id = ir.pdId '
         +     'LIMIT 1) as imgName '
-    + 'FROM products p '
-    + 'INNER JOIN users u ON u.userNo  = p.userNo '
-    if(param == 0){
-         sql += 'ORDER BY p.id  DESC;';
-    }else{
-       sql += 'WHERE u.userRegion = ? '
-       sql += 'ORDER BY p.id  DESC;';
+        + 'FROM products p '
+        + 'INNER JOIN users u ON u.userNo  = p.userNo '
+        + 'WHERE 1=1 '
+    if(conditions != ''){
+        sql += conditions
     }
-    connection.query(sql, param, (err, result) => {
-        console.log("action sql : ", sql)
+    
+    sql += 'ORDER BY p.id  DESC;';
+
+    connection.query(sql, (err, result) => {
+        console.log("action sql : ", sql);
+        console.log("result: ", result)
         if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
         else res.send(result);
     })
@@ -157,11 +172,6 @@ const getImageNamesByPdId = (req, res) => {
 
 const updateProduct = (req, res) => {
     let { userNo,category, title, price, desc, filename, id } = req.body;
-    console.log('id : ', req.body.id);
-    console.log('title : ', req.body.title)
-    console.log('price : ', req.body.price)
-    console.log('desc : ', req.body.desc)
-    console.log('filename : ', req.body.filename)
 
     let values = [title, desc, category, price, id]
     console.log('values? ' , values);
@@ -198,4 +208,6 @@ const updateProduct = (req, res) => {
 
 
 
-module.exports = { findAll , insertProduct, getImageNamesByPdId, getUploadListById, deleteList, updateProduct, getListByCity}
+module.exports = { findAll , insertProduct, getImageNamesByPdId, 
+                    getUploadListById, deleteList, updateProduct, 
+                    getListByParam}

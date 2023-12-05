@@ -41,3 +41,13 @@ export const manchesterTowns = [
     {key: 10, value:"Wigan"}
 ];
 
+export const categories= [
+    {key:1, value:"Home & Living"},
+    {key:2, value:"Accessories"},
+    {key:3, value:"Books"},
+    {key:4, value:"Clothing"},
+    {key:5, value:"Stationery"},
+    {key:6, value:"Electronics"},
+    {key:7, value:"Toys"},  
+    {key:8, value:"Others"}
+]

@@ -1,14 +1,16 @@
 import {useNavigate} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { cities, londonTowns, manchesterTowns } from './SelectAreaObj';
+import { cities, londonTowns, manchesterTowns, categories } from './SelectAreaObj';
 
 const MoreProducts = () => {
   let navigate = useNavigate();
   let [data, setData] = useState([]);
 
-  const [city, setCity] = useState('');
-  const [town, setTown] = useState('');
+  const [city, setCity] = useState('0');
+  const [town, setTown] = useState('0');
+  const [category, setCategory] = useState('0');
+
 
   useEffect( () => {
     async function getAllProducts(){
@@ -25,26 +27,48 @@ const MoreProducts = () => {
   }, []);
 
 
+  const onChangeCategoryHandler=(e)=>{
+    setCategory(e.currentTarget.value);
+    let paramObj = {
+      category : e.currentTarget.value,
+      city : city,
+      town : town
+    };
+    getListByParam(paramObj);
+}
   const onChangeCityHandler=(e)=>{
       setCity(e.currentTarget.value);
-      let param = e.currentTarget.value;
-      console.log("city  : " + param);
-      getListByParam(param);
+      let paramObj = {
+        category : category,
+        city : e.currentTarget.value,
+        town : '0'
+      };
+      getListByParam(paramObj);
   }
   const onChangeTownHandler=(e)=>{
       setTown(e.currentTarget.value);
-      let param = e.currentTarget.value;
-      console.log("town  : " + param);
-      getListByParam(param)
+      let paramObj = {
+        category : category,
+        city : city,
+        town : e.currentTarget.value
+      };
+
+      getListByParam(paramObj)
   }
 
-  const getListByParam = (param) => {
-      axios.get(`http://localhost:5000/getListByCity/${param}`)
-      .then((res) => { 
-          console.log("res ::" + res.data);
-          setData(res.data);
-      })
-      .catch((e) => console.log(e));
+  const getListByParam = (paramObj) => {
+    console.log("paramobj : " + JSON.stringify(paramObj));
+    
+    axios.post('http://localhost:5000/getListByParam', {
+        category : paramObj.category,
+        city : paramObj.city,
+        town : paramObj.town
+    },
+      { headers : {"Content-Type" : "application/json"}}
+    ).then((res) => {
+        console.log("? :" + JSON.stringify(res.data))
+        setData(res.data);
+      }).catch((e) => console.log(e));
   }
 
     return(
@@ -52,16 +76,22 @@ const MoreProducts = () => {
         <div style={{ textAlign: "center", marginTop: "5%", marginBottom: "3%" }}><h1>Popular Items</h1></div>
             <div className='selectBox'>
                 <nav>
+                    <select onChange={onChangeCategoryHandler} id="category" value={category}>
+                            <option  value="0">CATEGORIES</option>
+                            {categories.map((item, index) => (
+                                <option key={item.key} value={item.value}>{item.value}</option>
+                            ))}
+                    </select>
                     <select onChange={onChangeCityHandler} id="city" value={city}>
-                        <option  value="0">ALL</option>
+                        <option  value="0">CITY</option>
                         {cities.map((item, index) => (
                             <option key={item.key} value={item.value}>{item.value}</option>
                         ))}
                     </select>
                     <select onChange={onChangeTownHandler} id="town" value={town}>
-                          <option  value="0">ALL</option>
+                          <option  value="0">TOWN</option>
                         {
-                            city == ''
+                            city == '0'
                                 ? <></>
                                 : (city == 'London(Greater London)'
                                     ?
