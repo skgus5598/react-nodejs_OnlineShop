@@ -5,6 +5,7 @@ const fs = require('fs');
 let sql = '';
 
 const findAll = (req, res) => {
+    const { pageNum, limit }  = req.query;
     sql = 'SELECT p.* ,'
             +     'u.userId ,'
             +     'u.userRegion ,'
@@ -15,7 +16,8 @@ const findAll = (req, res) => {
             +     'LIMIT 1) as imgName '
          + 'FROM products p '
          + 'INNER JOIN users u ON u.userNo  = p.userNo '
-         + 'ORDER BY p.id  DESC;';
+         + 'ORDER BY p.id  DESC '
+         + `LIMIT ${pageNum}, ${limit} ;` ;
     connection.query(sql, (err, result) => {
         if (err) console.log("query is not excuted. select fail!\n" + err);
         else res.send(result);

@@ -14,18 +14,35 @@ const AllProducts = () => {
 
   const [noItem, setNoItem] = useState(false);
 
+  let [pageNum, setPageNum] = useState(0); //start from 0 => LIMIT 0, 8
+  const limit = 4;
+ 
 
   useEffect( () => {
-    async function getAllProducts(){
-      const result = await axios.get('http://localhost:5000/getList', {
-        headers : {"Content-Type" : "application/json"}
-      }).then( (res => {
-        setData(res.data)
-      })).catch((err) => { console.log(err)    })
-    }
-    getAllProducts();
+    getAllProducts(pageNum);
   }, []);
 
+  async function getAllProducts(num){
+    const result = await axios.get('http://localhost:5000/getList', {
+      params: {
+        pageNum : num,
+        limit : limit
+    }
+    }).then( (res =>  {
+      if(num == 0){ // first page(without load more)
+          setData(res.data);
+      }else{
+        let copy = [...data, ...res.data];
+        setData(copy);
+      }
+    })).catch((err) => { console.log(err)    })
+  }
+
+  const loadMoreBtn = () => {
+      let num = pageNum + limit;
+      setPageNum(num);
+      getAllProducts(num)
+  }
 
   const onChangeCategoryHandler=(e)=>{
     setCategory(e.currentTarget.value);
@@ -144,8 +161,11 @@ const AllProducts = () => {
             }
             </div>
             }
+            {
+              
+            }
             <div style={{textAlign:'center', paddingBottom:'100px'}}>
-              <button className='moreBtn'>more</button>
+              <button className='moreBtn' onClick={()=>{loadMoreBtn()}  }>more</button>
             </div>
         </div>
         </>

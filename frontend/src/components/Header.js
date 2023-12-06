@@ -146,7 +146,7 @@ const Input = styled.input`
   `;
 
 const Image = styled.img`
-    
+    cursor:pointer
   `;
 
 const Select = styled.select`
