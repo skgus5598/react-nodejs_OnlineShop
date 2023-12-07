@@ -22,32 +22,46 @@ const MyUploadDetail = () => {
                 });
         }
     }
-    const modifyBtn = () => {       
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'}); 
-        navigate('/upload', {state : data})
+    const modifyBtn = () => {
+        window.scrollTo({ top: 0,  behavior: 'smooth'});
+        navigate('/upload', { state: data })
+    }
+
+    const bumpBtn = () => {
+        axios.put('http://localhost:5000/bumpMyList',{
+            pdId : data.id
+          },{ headers : {"Content-Type" : "application/json"}}
+          ).then((res) => alert("Success BUMP!"))
+           .catch((e) => console.log(e));
+    
+        window.scrollTo({top: 0, behavior: 'smooth' });
     }
 
     return (
 
         <div className="detailContainer" >
             <img className='backImg' src={back} onClick={() => { navigate(-1) }} />
-             <div className="row">
+            <div className="row">
                 <div>
                     <ImageSlide pdId={data.id} /><br />
                 </div>
             </div>
             <br />
             <div className='sellerInfo'>
-                <div><img src={avatar} /> </div>
-                <div style={{ margin: "10px 20px" }}>
-                    <div><b>{data.userId}</b></div>
-                    <div>{data.userRegion} {data.userArea} </div>
+                <div className='div1'>
+                    <div><img src={avatar} /> </div>
+                    <div style={{ margin: "10px 20px" }}>
+                        <div><b>{data.userId}</b></div>
+                        <div>{data.userRegion}, {data.userArea} </div>
+                    </div>
                 </div>
-                <div className='controllBtn'>
-                    <img src={modifyIcon} onClick={() => { modifyBtn() }} />
-                    <img style={{ marginLeft: '10px' }} src={deleteIcon} onClick={() => { deleteBtn() }} />
+                <div className='div2'>
+                    <div>
+                        <a><img src={modifyIcon} onClick={() => { modifyBtn() }} /></a>
+                    </div>
+                    <div>
+                        <a><img src={deleteIcon} onClick={() => { deleteBtn() }} /></a>
+                    </div>
                 </div>
             </div>
             <hr />
@@ -57,9 +71,9 @@ const MyUploadDetail = () => {
                 <h4><b>£{data.pd_price}</b></h4>
                 {
                     data.pd_desc.split("\r\n").map((line => {
-                        return(
+                        return (
                             <span>{line}
-                            <br/>
+                                <br />
                             </span>
                         )
                     }))
@@ -71,36 +85,12 @@ const MyUploadDetail = () => {
 
             <hr />
             <div className='bumpBtn'>
-                <button>Bring Up My Post</button>
-            </div> 
+                <button onClick={() => { bumpBtn() }}>Bring Up My Post</button>
+            </div>
         </div>
     )
 }
 
 
-const ModifyForm = (props) => {
-    let [title, setTitle] = useState('');
-    let [price, setPrice] = useState('');
-    let [desc, setDesc] = useState('');
-
-    return (
-        <>
-            <div style={{ textAlign: "left" }}>
-                <div>
-                    <span>Title</span>
-                    <input type="text" placeholder="title" value={props.data.pd_title} onChange={(e) => { setTitle(e.target.value) }} />
-                </div>
-                <div>
-                    <span>Price</span>
-                    <input type="text" placeholder="£" value={props.data.pd_price} onChange={(e) => { setPrice(e.target.value) }} />
-                </div>
-                <div>
-                    <span>Description</span><br/>
-                    <textarea className='inputTextarea' placeholder="Description" value={props.data.pd_desc} onChange={(e) => { setDesc(e.target.value) }} />
-                </div>
-            </div>
-        </>
-    )
-}
 
 export default MyUploadDetail;

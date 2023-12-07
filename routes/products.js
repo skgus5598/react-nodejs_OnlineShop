@@ -19,7 +19,7 @@ const upload = multer({storage : storage});
 const {findAll, insertProduct, getImageNamesByPdId, 
         deleteList, updateProduct, 
         getListByParam_a, getListByParam_b,
-        getLikeList, getLike, insertLike, deleteLike, addViewCnt} = require('../controller/productController');
+        getLikeList, getLike, insertLike, deleteLike, addViewCnt, bumpMyList} = require('../controller/productController');
 
 router.get('/getList', findAll);
 router.post('/upload', upload.array('file'), insertProduct);
@@ -37,6 +37,9 @@ router.get('/getListByParam_b/', getListByParam_b);
 router.get('/getImageNames/:pdId', getImageNamesByPdId);
 router.delete('/deleteList/:id', deleteList);
 router.put('/updateProduct', updateProduct);
+router.put('/bumpMyList', bumpMyList);
+
+
 
 
 

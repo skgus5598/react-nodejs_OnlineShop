@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import listIcon from '../../img/list.png';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -7,24 +7,12 @@ import { useSelector } from 'react-redux';
 
 const UploadList = () => {
     let navigate = useNavigate();
-    const [list, setList] = useState([]);
-    let user_rd = useSelector( (state) => state.persistedReducer.user_rd); //redux
 
-    useEffect( () => {
-        const userId = user_rd.userId
-        async function getListByUserId(){
-          const result = await axios.get(`http://localhost:5000/getListByParam_b/`, {
-            params: {
-                userId : userId
-            }
-          }).then( (res => {
-                 setList(res.data)
-          })).catch((err) => {
-            console.log(err)
-          })
-        }
-        getListByUserId();
- }, []);
+    let location = useLocation();
+    const data = location.state;
+
+    console.log("data: " + JSON.stringify(data))
+
 
     return (
         <>
@@ -36,14 +24,14 @@ const UploadList = () => {
                     </div>
             </div><br/>
             {
-                list == '' 
+                data == '' 
                 ? <div className='emptyList'>
                     <img src={nodata} />
                     <h2>No posts yet</h2>
                   </div> 
                 : <div className='cardsWrap'>
                 {
-                    list.map( (e, i) => {
+                    data.map( (e, i) => {
                         return(
                         <article key={i} className='card'>
                             <a className='cardLink' onClick={(e) => {
@@ -51,7 +39,7 @@ const UploadList = () => {
                                     top: 0,
                                     behavior: 'smooth'
                                 })
-                                return navigate('/myUploadDetail', {state : list[i]})}}>
+                                return navigate('/myUploadDetail', {state : data[i]})}}>
                             <div className='cardPhoto'>
                                 <img src={`http://localhost:5000/images/${e.imgName}`} />
                             </div>
@@ -59,7 +47,7 @@ const UploadList = () => {
                                 <h3 className='cardTitle'>{e.pd_title}</h3>
                                 <div className='cardPrice'>£{e.pd_price}</div>
                                 <div className='cardRegion'>{e.userRegion}, {e.userArea}</div>
-                                <span className='likeSpan'>like 30∙click 189</span>
+                                <span className='likeSpan'>like {e.likeTot}∙click {e.pd_views}</span>
                             </div>
                             </a>
                         </article>

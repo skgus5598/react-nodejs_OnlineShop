@@ -19,25 +19,22 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className="sec quicklinks">
-                    <h2>Supports</h2>
+                    <div className='credits'>
+                    <h2>Credits</h2>
                     <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="https://www.flaticon.com/free-icons/send" title="send icons">Send icons created by Freepik - Flaticon</a></li>
+                        <li><a href="https://www.flaticon.com/free-icons/modify" title="modify icons">Modify icons created by Arkinasi - Flaticon</a></li>
+                        <li><a href="https://www.flaticon.com/free-icons/trash" title="trash icons">Trash icons created by Freepik - Flaticon</a></li>
+                        <li><a href="https://www.flaticon.com/free-icons/animal" title="animal icons">Animal icons created by Freepik - Flaticon</a></li>
+                        <li><a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Vlad Szirka - Flaticon</a></li>
                     </ul>
-                </div>
-                <div className="sec quicklinks">
-                    <h2>Shop</h2>
-                    <ul>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+                    </div>
                 </div>
                 <div className="sec contact">
                     <h2>Contact Us</h2>
                     <ul className="info">
                         <li><span><FontAwesomeIcon icon={faPhone} /></span><a href="tel:+12345678900">+1 234 567 8900</a></li>
                         <li><span><FontAwesomeIcon icon={faEnvelope} /></span><a href="mailto:krowmore@mailto.meee">2nd@market.com</a></li>
-                        <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Vlad Szirka - Flaticon</a>                    
                     </ul>
                 </div>
             </div>

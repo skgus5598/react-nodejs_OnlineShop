@@ -345,8 +345,12 @@
 }
 
 .cardLink {
+  cursor: pointer;
   text-decoration: none;
   color: #212529;
+}
+.cardLink:hover{
+  opacity: 0.7;
 }
 
 .cardPhoto {

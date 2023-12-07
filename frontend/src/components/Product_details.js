@@ -95,7 +95,7 @@ const Product_details = () => {
                 <div><img src={avatar} /> </div>
                 <div style={{ margin: "10px 20px" }}>
                   <div><b>{data.userId}</b></div>
-                  <div>{data.userRegion} {data.userArea} </div>
+                  <div>{data.userRegion}, {data.userArea} </div>
                 </div>
           </div>
           <div className='div2'>

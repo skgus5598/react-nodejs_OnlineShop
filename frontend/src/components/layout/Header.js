@@ -9,10 +9,13 @@ import { useNavigate} from 'react-router-dom';
 import chicken from '../../img/chicken.png';
 import { useDispatch, useSelector } from 'react-redux';
 import {  clearUser } from '../../redux/userSlice.js';
+import axios from "axios";
+
 
 const Header = () => {
   let navigate = useNavigate();
 
+  let userNo = useSelector((state) => state.persistedReducer.user_rd.userNo); //redux
   let isLogin = useSelector( (state) => state.persistedReducer.user_rd.loginCheck);
   let dispatch = useDispatch(); // send request to store.js(redux)
 
@@ -36,6 +39,12 @@ const logoutBtn = () => {
 }
 const searchHandler = (e) => {
    setKeyword(e.currentTarget.value);
+}
+
+const getLikedList = () => {
+  axios.get(`http://localhost:5000/getLikeList/${userNo}`)
+      .then((res) => {  navigate('/likedList' ,  {state : res.data})    
+      }).catch((e) => console.log(e));
 }
 
   return (
@@ -70,16 +79,16 @@ const searchHandler = (e) => {
             </InputWrap>
           </div>
           <div className="headerMenuDiv" >
-            <a className="headerMenu" style={{ width: '50%' }} href="#" >
+            <a className="headerMenu1"href="#" >
               <FontAwesomeIcon style={{
                 color: "#495057",
                 verticalAlign: "middle",
                 display: "inline-block",
               }} icon={faPlus} />
-              <Button onClick={() => {addBtn()}}>Add a Listing</Button>
+              <Button onClick={() => {addBtn()}}><span>Add a Listing</span></Button>
             </a>
 
-            <a className="headerMenu" style={{ width: '25%', cursor:'pointer' }} onClick={() => {navigate('/likedList')}} >
+            <a className="headerMenu" style={{ width: '25%', cursor:'pointer' }} onClick={() => {getLikedList()}} >
               <FontAwesomeIcon style={{
                 color: "#495057",
                 verticalAlign: "middle",

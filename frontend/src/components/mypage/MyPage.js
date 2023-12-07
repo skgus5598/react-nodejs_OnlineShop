@@ -1,17 +1,31 @@
-import avatar from '../../img/chicken_big.png';
-import { useNavigate, useLocation } from "react-router-dom";
-import like from '../../img/like.png';
-import list from '../../img/list.png';
-import letter from '../../img/letter.png';
+import avatarImg from '../../img/chicken_big.png';
+import { useNavigate } from "react-router-dom";
+import likeImg from '../../img/like.png';
+import listImg from '../../img/list.png';
+import letterImg from '../../img/letter.png';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useState } from 'react';
 
 const MyPage = () => {
     const navigate = useNavigate();
-    let user = useSelector( (state) => state.persistedReducer.user_rd);
+    let userNo = useSelector((state) => state.persistedReducer.user_rd.userNo); //redux
+    
+    const getUploadList = () => {
+        axios.get(`http://localhost:5000/getListByParam_b/`, {
+            params: {
+                userNo : userNo
+            }
+          }).then( (res => { navigate('/uploadList', {state : res.data})
+          })).catch((err) => {  console.log(err)  })
+    }
 
-   // let location = useLocation();
-    //const data = { ...location.state };
-
+    const getLikedList = () => {
+        axios.get(`http://localhost:5000/getLikeList/${userNo}`)
+            .then((res) => {  navigate('/likedList' ,  {state : res.data})    
+            }).catch((e) => console.log(e));
+    }
+    
 
     return (
         <>
@@ -19,19 +33,19 @@ const MyPage = () => {
                 <div className='menu' >
                     <div  onClick={() => { navigate('/profile')}}>
                             <h5>Profile</h5>
-                            <img src={avatar}/>
+                            <img src={avatarImg}/>
                     </div>
-                    <div onClick={() => { navigate('/uploadList')}}>
+                    <div onClick={() => { getUploadList()}}>
                         <h5>Upload History</h5>
-                        <img src={list}/>
+                        <img src={listImg}/>
                     </div>
-                    <div onClick={() => {navigate('/likedList')}}>
+                    <div onClick={() => { getLikedList()}}>
                         <h5>Liked List</h5>
-                        <img src={like}/>
+                        <img src={likeImg}/>
                     </div>
                     <div onClick={() => {}}>
                         <h5>Message</h5>
-                        <img src={letter}/>
+                        <img src={letterImg}/>
                     </div>
                 </div>
             </div>

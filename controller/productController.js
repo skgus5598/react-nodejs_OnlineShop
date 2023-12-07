@@ -21,7 +21,7 @@ const findAll = (req, res) => {
          + 'FROM products p '
          + 'INNER JOIN users u ON u.userNo  = p.userNo '
          + 'WHERE 1 = 1 '
-         + 'ORDER BY p.id  DESC '
+         + 'ORDER BY p.update_date  DESC '
          + `LIMIT ${pageNum}, ${limit} ;` ;
     connection.query(sql, (err, result) => {
         if (err) console.log("query is not excuted. select fail!\n" + err);
@@ -47,7 +47,7 @@ const getLikeList = (req, res) => {
          + 'INNER JOIN users u ON u.userNo  = p.userNo '
          + 'WHERE 1 = 1 '
          + `AND p.id IN ( SELECT pd_id FROM likeHit WHERE user_no = ${userNo}  ) `
-         + 'ORDER BY p.id  DESC '
+         + 'ORDER BY p.update_date  DESC '
      connection.query(sql, (err, result) => {
         console.log("action sql : ", sql);
         if (err) console.log("query is not excuted. getLikeList fail!\n" + err);
@@ -128,7 +128,7 @@ const getListByParam_a = (req, res) => {
         + 'INNER JOIN users u ON u.userNo  = p.userNo '
         + 'WHERE 1=1 '
     if(conditions != ''){   sql += conditions  }
-    sql += 'ORDER BY p.id  DESC;';
+    sql += 'ORDER BY p.update_date  DESC;';
 
     connection.query(sql, (err, result) => {
         console.log("action sql : ", sql);
@@ -139,7 +139,7 @@ const getListByParam_a = (req, res) => {
 
 //get :id & :keyword
 const getListByParam_b = (req, res) => {
-    const { userId, keyword }  = req.query;
+    const { userNo, keyword }  = req.query;
     console.log('getListByParam_b(params) : ' , req.query);
     sql = 'SELECT p.* ,'
         +     'u.userId ,'
@@ -156,15 +156,17 @@ const getListByParam_b = (req, res) => {
     + 'FROM products p '
     + 'INNER JOIN users u ON u.userNo  = p.userNo '
     + 'WHERE 1=1 '
-    if(userId != null || userId != undefined){
-        sql += `AND u.userNo = (SELECT userNo FROM users WHERE userId = '${userId}' ) `
+    if(userNo != null || userNo != undefined){
+        //sql += `AND u.userNo = (SELECT userNo FROM users WHERE userId = '${userId}' ) `
+        sql += `AND u.userNo = '${userNo}' `
     }
     if(keyword != null || keyword != undefined){
         sql += `AND p.pd_title LIKE '%${keyword}%' OR p.pd_desc LIKE '%${keyword}%' `
     }
-    sql+= 'ORDER BY p.id  DESC;';
+    sql+= 'ORDER BY p.update_date  DESC;';
 
     connection.query(sql,(err, result) => {
+        console.log("sql : " + sql)
         if (err) console.log("query is not excuted. getUploadListById fail!\n" + err);
         else res.send(result);
     })
@@ -290,10 +292,19 @@ const updateProduct = (req, res) => {
     })      
 }
 
+const bumpMyList = (req, res) => {
+    let pdId = req.body.pdId
+    sql = `UPDATE products SET update_date  = NOW() WHERE id = ${pdId} ; ` ;
+    connection.query(sql, (err, result) => {
+        console.log("action sql : ", sql);
+        if (err) console.log("query is not excuted. bumpMyList fail!\n" + err);
+        else res.send(result);
+    })
+}
 
 
 module.exports = { findAll , insertProduct, getImageNamesByPdId, 
                      deleteList, updateProduct, 
                     getListByParam_a, getListByParam_b,
                     getLikeList, getLike, insertLike, deleteLike,
-                    addViewCnt}
+                    addViewCnt, bumpMyList}

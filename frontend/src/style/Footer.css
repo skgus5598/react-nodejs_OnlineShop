@@ -8,16 +8,31 @@ footer {
 }
 li{
     list-style-type: none;
-    text-align: center;
+    text-align: left;
 }
 ul{
     padding: 0;
 }
+
+h2{
+    text-align: left;
+}
 .container {
     width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    display: flex;
+    /* display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr; */
     grid-gap: 20px;
+}
+
+.aboutus{
+    width: 35%;
+}
+.quicklinks{
+    width: 35%;
+}
+.contact{
+    width: 30%;
 }
 
 .sec h2 {
@@ -38,7 +53,6 @@ ul{
 }
 
 .sci {
-    padding-left: 23%;
     display: grid;
     grid-template-columns: repeat(4, 50px);
     margin-top: 20px;
@@ -62,9 +76,10 @@ ul{
 }
 
 .quicklinks {
-    text-align: center;
+    text-align: left;
     position: relative;
 }
+
 
 .quicklinks li a {
     display: inline-block;
@@ -98,7 +113,7 @@ ul{
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     padding: 20px 100px 30px;
     color: #555;
-    text-align: center;
+    text-align: left;
 }
 
 @media (max-width: 991px) {
@@ -109,7 +124,7 @@ ul{
     .container {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
         grid-gap: 20px;
     }
 
