@@ -13,17 +13,90 @@ const findAll = (req, res) => {
             +     '(SELECT ir.imgName '
             +     'FROM imagesRepo ir '
             +     'WHERE p.id = ir.pdId '
-            +     'LIMIT 1) as imgName '
+            +     'LIMIT 1) as imgName, '
+            +     '(SELECT COUNT(*) '
+            +     'FROM likeHit li '
+            +     'WHERE li.pd_id = p.id '
+            +     ') as likeTot '
          + 'FROM products p '
          + 'INNER JOIN users u ON u.userNo  = p.userNo '
+         + 'WHERE 1 = 1 '
          + 'ORDER BY p.id  DESC '
          + `LIMIT ${pageNum}, ${limit} ;` ;
     connection.query(sql, (err, result) => {
         if (err) console.log("query is not excuted. select fail!\n" + err);
         else res.send(result);
     })
-
 };
+
+const getLikeList = (req, res) => {
+    const userNo = req.params.userNo;
+    sql = 'SELECT p.* ,'
+            +     'u.userId ,'
+            +     'u.userRegion ,'
+            +     'u.userArea ,'
+            +     '(SELECT ir.imgName '
+            +     'FROM imagesRepo ir '
+            +     'WHERE p.id = ir.pdId '
+            +     'LIMIT 1) as imgName, '
+            +     '(SELECT COUNT(*) '
+            +     'FROM likeHit li '
+            +     'WHERE li.pd_id = p.id '
+            +     ') as likeTot '
+         + 'FROM products p '
+         + 'INNER JOIN users u ON u.userNo  = p.userNo '
+         + 'WHERE 1 = 1 '
+         + `AND p.id IN ( SELECT pd_id FROM likeHit WHERE user_no = ${userNo}  ) `
+         + 'ORDER BY p.id  DESC '
+     connection.query(sql, (err, result) => {
+        console.log("action sql : ", sql);
+        if (err) console.log("query is not excuted. getLikeList fail!\n" + err);
+        else res.send(result);
+    }) 
+}
+
+const getLike = (req, res) => {
+    const { pdId, userNo }  = req.query;
+    sql = 'SELECT IF(EXISTS( ' 
+             + `SELECT like_hit FROM likeHit WHERE pd_id=${pdId} AND user_no = ${userNo} `
+        + '), 1, 0 ) AS result; ' ;
+    connection.query(sql, (err, result) => {
+        console.log("action sql : ", sql);
+        if (err) console.log("query is not excuted. getLike fail!\n" + err);
+        else res.send(result[0]);
+    })    
+}
+
+const insertLike = (req, res) => {
+    const { pdId, userNo } = req.body;
+    sql = 'INSERT INTO likeHit(pd_id, user_no, like_hit) '
+        + `VALUES ( ${pdId}, ${userNo}, 1 );` ;
+    connection.query(sql, (err, result) => {
+        console.log("action sql : ", sql);
+        if (err) console.log("query is not excuted. insertLike fail!\n" + err);
+        else res.send(result);
+    })
+}
+
+const deleteLike = (req, res) => {
+    const { pdId, userNo } = req.query;
+    sql = `DELETE FROM likeHit WHERE pd_id = ${pdId} AND user_no = ${userNo} ;`; 
+    connection.query(sql, (err, result) => {
+        console.log("action sql : ", sql);
+        if (err) console.log("query is not excuted. deleteLike fail!\n" + err);
+        else res.send(result);
+    })
+}
+
+const addViewCnt = (req, res) => {
+    let pdId = req.body.pdId
+    sql = `UPDATE products SET pd_views = pd_views + 1 WHERE id = ${pdId} ; ` ;
+    connection.query(sql, (err, result) => {
+        console.log("action sql : ", sql);
+        if (err) console.log("query is not excuted. addViewCnt fail!\n" + err);
+        else res.send(result);
+    })
+}
 
 //post 
 const getListByParam_a = (req, res) => {
@@ -46,7 +119,11 @@ const getListByParam_a = (req, res) => {
         +     '(SELECT ir.imgName '
         +     'FROM imagesRepo ir '
         +     'WHERE p.id = ir.pdId '
-        +     'LIMIT 1) as imgName '
+        +     'LIMIT 1) as imgName, '
+        +     '(SELECT COUNT(*) '
+        +     'FROM likeHit li '
+        +     'WHERE li.pd_id = p.id '
+        +     ') as likeTot '
         + 'FROM products p '
         + 'INNER JOIN users u ON u.userNo  = p.userNo '
         + 'WHERE 1=1 '
@@ -71,7 +148,11 @@ const getListByParam_b = (req, res) => {
         +     '(SELECT ir.imgName '
         +     'FROM imagesRepo ir '
         +     'WHERE p.id = ir.pdId '
-        +     'LIMIT 1) as imgName '
+        +     'LIMIT 1) as imgName, '
+        +     '(SELECT COUNT(*) '
+        +     'FROM likeHit li '
+        +     'WHERE li.pd_id = p.id '
+        +     ') as likeTot '
     + 'FROM products p '
     + 'INNER JOIN users u ON u.userNo  = p.userNo '
     + 'WHERE 1=1 '
@@ -213,4 +294,6 @@ const updateProduct = (req, res) => {
 
 module.exports = { findAll , insertProduct, getImageNamesByPdId, 
                      deleteList, updateProduct, 
-                    getListByParam_a, getListByParam_b}
+                    getListByParam_a, getListByParam_b,
+                    getLikeList, getLike, insertLike, deleteLike,
+                    addViewCnt}

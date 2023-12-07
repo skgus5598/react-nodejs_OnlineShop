@@ -18,6 +18,7 @@ CREATE TABLE products(
 	pd_desc varchar(2000) NOT NULL,
 	pd_category varchar(20) NOT NULL,
 	pd_price varchar(20) NOT NULL,
+	pd_views int,
 	FOREIGN KEY(userNo) REFERENCES users(userNo) ON DELETE CASCADE
 );
 

@@ -17,7 +17,7 @@
 .itemLists {
   margin-left: 5%;
   margin-right: 5%;
-
+  margin-bottom: 10%;
 }
 
 .searchWrap {
@@ -115,7 +115,34 @@
   text-align: left;
   padding-top:10px ;
 }
+.sellerInfo .div1{
+  display:flex;
+  width:50%;  
+}
+.sellerInfo .div2{
+  justify-content: right;
+  width: 50%;
+  padding-left: 10%;
+  display: flex;
+  padding-top: 3%;
+}
+.sellerInfo .div2 div{
+  padding-right: 10%;
+}
+.sellerInfo .div2 div a{
+  cursor: pointer;
+}
 
+.detailAllproducts .cardsWrap{
+  justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+}
+.detailAllproducts h1, .detailAllproducts nav{
+   display: none;
+}
 
 .responsive-image {
   width: 100%;
@@ -679,3 +706,4 @@
     padding: 18px 24px;
 
 }
+

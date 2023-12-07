@@ -1,0 +1,43 @@
+
+
+CREATE TABLE users(
+	userNo int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	userId varchar(20) NOT NULL,
+	userPwd varchar(20) NOT NULL,
+	userEmail varchar(20) NOT NULL,
+	userRegion varchar(100),
+	userArea varchar(20),
+	insert_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE products(
+	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	userNo int NOT NULL,
+	pd_title varchar(100) NOT NULL,
+	pd_desc varchar(2000) NOT NULL,
+	pd_category varchar(20) NOT NULL,
+	pd_price varchar(20) NOT NULL,
+	pd_views int DEFAULT O,
+	FOREIGN KEY(userNo) REFERENCES users(userNo) ON DELETE CASCADE
+);
+
+CREATE TABLE imagesRepo(
+	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	pdId int NOT NULL,
+	imgName varchar(100) NOT NULL,
+	FOREIGN KEY(pdId) REFERENCES products(id) ON DELETE CASCADE
+);
+
+ALTER TABLE products ADD COLUMN insert_date DATETIME DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE products ADD COLUMN update_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+ALTER TABLE users ADD COLUMN userEmail varchar(20) NOT NULL;
+
+CREATE TABLE likeHit(
+	like_no int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	pd_id int NOT NULL,
+	user_no int NOT NULL,
+	like_hit int,
+	FOREIGN KEY(pd_id) REFERENCES products(id) ON DELETE CASCADE,
+	FOREIGN KEY(user_no) REFERENCES users(userNo) ON DELETE CASCADE
+);

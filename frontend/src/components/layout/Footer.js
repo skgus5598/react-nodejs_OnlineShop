@@ -37,6 +37,7 @@ const Footer = () => {
                     <ul className="info">
                         <li><span><FontAwesomeIcon icon={faPhone} /></span><a href="tel:+12345678900">+1 234 567 8900</a></li>
                         <li><span><FontAwesomeIcon icon={faEnvelope} /></span><a href="mailto:krowmore@mailto.meee">2nd@market.com</a></li>
+                        <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Vlad Szirka - Flaticon</a>                    
                     </ul>
                 </div>
             </div>

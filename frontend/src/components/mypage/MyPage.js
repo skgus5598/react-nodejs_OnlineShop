@@ -29,7 +29,7 @@ const MyPage = () => {
                         <h5>Liked List</h5>
                         <img src={like}/>
                     </div>
-                    <div onClick={() => {navigate('/likedList')}}>
+                    <div onClick={() => {}}>
                         <h5>Message</h5>
                         <img src={letter}/>
                     </div>

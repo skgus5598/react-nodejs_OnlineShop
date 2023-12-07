@@ -91,6 +91,21 @@ const AllProducts = () => {
       }).catch((e) => console.log(e));
   }
 
+  const detailHandler = (i) => {
+    data[i].pd_views += 1;
+
+    axios.put('http://localhost:5000/addViewCnt',{
+        pdId : data[i].id
+      },{ headers : {"Content-Type" : "application/json"}}
+      ).then((res) => console.log("success"))
+       .catch((e) => console.log(e));
+
+    window.scrollTo({top: 0, behavior: 'smooth' });
+    navigate('/detail', {state : data[i]})
+  }
+      
+  
+
     return(
         <>
         <div style={{ textAlign: "center", marginTop: "2%", marginBottom: "2%", color:'#666666' }}><h1>Search for Items around you</h1></div>
@@ -139,12 +154,8 @@ const AllProducts = () => {
               data.map( (e, i) => {
                 return(
                   <article key={i} className='card'>
-                    <a className='cardLink' onClick={(e) => {
-                          window.scrollTo({
-                              top: 0,
-                              behavior: 'smooth'
-                        })
-                        return navigate('/detail', {state : data[i]})}}>
+                    <a className='cardLink' onClick={(e) => { detailHandler(i) }} >
+                        {/* return navigate('/detail', {state : data[i]})}}> */}
                       <div className='cardPhoto'>
                         <img src={`http://localhost:5000/images/${e.imgName}`} />
                       </div>
@@ -152,7 +163,7 @@ const AllProducts = () => {
                         <h3 className='cardTitle'>{e.pd_title}</h3>
                         <div className='cardPrice'>£{e.pd_price}</div>
                         <div className='cardRegion'>{e.userRegion}, {e.userArea}</div>
-                        <span className='likeSpan'>like 30∙click 189</span>
+                        <span className='likeSpan'>like {e.likeTot}∙view {e.pd_views}</span>
                       </div>
                     </a>
                   </article>
