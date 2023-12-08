@@ -70,7 +70,7 @@ const SignUpForm = () => {
                 userId : loginId,
                 userPwd : password,
                 userEmail : email,
-                nickname : nickName
+                nickName : nickName
             }, {
                 headers : { "Content-Type" : "application/json" }
             }).then( res => {
