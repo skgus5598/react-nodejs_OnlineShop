@@ -2,34 +2,40 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router";
 import axios from 'axios';
+import glass from '../img/glass.png'
 import { cities, londonTowns, manchesterTowns, categories } from './SelectAreaObj';
 import nodata from '../img/nodata.png';
 
 const SearchProducts = () => {
   let navigate = useNavigate();
-  const { state } = useLocation(); //search keyword from header
+  let { state } = useLocation(); //search keyword from header
   let [data, setData] = useState([]);
 
   const [noItem, setNoItem] = useState(false);
+
+  const [searchKeyword, setSearchKeyword] = useState('');
  
   useEffect(() => {
-    let keyword = state;
-    async function getListByKeyword() {
-      const result = await axios.get(`http://localhost:5000/getListByParam_b`, {
-        params:{
-          keyword: keyword
-        }
-      }).then((res => {
-        if(res.data == ''){
-          setNoItem(true);
-        }else{
-          setData(res.data);
-          setNoItem(false);
-        }
-      })).catch((err) => { console.log(err) })
-    }
     getListByKeyword();
   }, [state]);
+
+  async function getListByKeyword() {
+    let keyword = state;
+    const result = await axios.get(`http://localhost:5000/getListByParam_b`, {
+      params:{
+        keyword: keyword
+      }
+    }).then((res => {
+      if(res.data == ''){
+        setNoItem(true);
+      }else{
+        setData(res.data);
+        setNoItem(false);
+      }
+    })).catch((err) => { console.log(err) })
+  }
+
+
 
   const detailHandler = (i) => {
     data[i].pd_views += 1;
@@ -44,8 +50,27 @@ const SearchProducts = () => {
     navigate('/detail', {state : data[i]})
   }
 
+
+  const searchHandler = (e) => {
+    setSearchKeyword(e.currentTarget.value);
+  }
+  const handleOnKeyPress = (e) => {
+    if(e.key == 'Enter'){
+      //event
+      state = e.currentTarget.value;
+      getListByKeyword();
+    }
+  }
+
+
   return (
     <>
+      <div className='mediaqSearchBox'>
+        <div className='headerInput'>
+          <input type='text' value={searchKeyword} onChange={searchHandler} onKeyDown={handleOnKeyPress}  placeholder="Search for anything" />
+          <img src={glass} />
+        </div>
+      </div>
       <div className='itemLists'>
         <div className='Allproducts'><br/><br/>
           {
@@ -56,7 +81,7 @@ const SearchProducts = () => {
               </div>
               : 
               <>
-              <div style={{textAlign:'left', paddingLeft:'5%'}}>
+              <div className='itemsFound' >
                 <h5> {data.length} ITEMS FOUND!</h5>
               </div>
               <div className='cardsWrap' style={{justifyContent:"flex-start"}}>

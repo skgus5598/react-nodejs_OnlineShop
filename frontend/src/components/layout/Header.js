@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faEnvelope, faHeart, faHouseChimneyUser} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEnvelope, faHeart, faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import unknownUser from '../../img/unknownUser.png';
 import '../../style/Header.css'
 import mainlogo from '../../img/mainlogo.png';
 import { useNavigate} from 'react-router-dom';
 import chicken from '../../img/chicken.png';
+import glass from '../../img/glass.png';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {  clearUser } from '../../redux/userSlice.js';
 import axios from "axios";
@@ -38,7 +40,13 @@ const logoutBtn = () => {
   }
 }
 const searchHandler = (e) => {
-   setKeyword(e.currentTarget.value);
+  setKeyword(e.currentTarget.value);
+
+}
+const handleOnKeyPress = e => {
+  if(e.key == 'Enter'){
+    navigate('/searchProducts', { state: keyword});
+  }
 }
 
 const getLikedList = () => {
@@ -69,26 +77,26 @@ const getLikedList = () => {
             ></Image>
             <InputWrap>
               <div className="headerInput">
-                <Input value={keyword} onChange={searchHandler} placeholder="Search for anything"></Input>
+                <Input value={keyword} onChange={searchHandler} onKeyDown={handleOnKeyPress}  placeholder="Search for anything"></Input>
                 <img
                   style={{ marginRight: "10px", cursor: "pointer" }}
-                  src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base/header/search-icon-7008edd4f9aaa32188f55e65258f1c1905d7a9d1a3ca2a07ae809b5535380f14.svg"
+                  src={glass}
                   onClick={ () => { navigate('/searchProducts', { state: keyword})}}
                />
               </div>
             </InputWrap>
           </div>
           <div className="headerMenuDiv" >
-            <a className="headerMenu1"href="#" >
+            <a className="headerMenu1" onClick={() => {addBtn()}}>
               <FontAwesomeIcon style={{
                 color: "#495057",
                 verticalAlign: "middle",
                 display: "inline-block",
               }} icon={faPlus} />
-              <Button onClick={() => {addBtn()}}><span>Add a Listing</span></Button>
+              <Button ><span>Add a Listing</span></Button>
             </a>
 
-            <a className="headerMenu" style={{ width: '25%', cursor:'pointer' }} onClick={() => {getLikedList()}} >
+            <a className="headerMenu" style={{ width: '25%'}} onClick={() => {getLikedList()}} >
               <FontAwesomeIcon style={{
                 color: "#495057",
                 verticalAlign: "middle",
@@ -112,7 +120,14 @@ const getLikedList = () => {
                               behavior: 'smooth'
                         })
                         return navigate('/myPage')}}/>
-                  <Button2 onClick={() => { logoutBtn()} } >   Sign out </Button2>
+                  <a className="headerMenuLogout" onClick={() => {logoutBtn()}} >
+                    <FontAwesomeIcon style={{
+                        color: "#495057",
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                      }} icon={faArrowRightFromBracket} />
+                    <Button ><span>Logout</span></Button>
+                  </a>
                 </>
               : <>
                   <img className="signinIcon" src={unknownUser} />
@@ -138,7 +153,10 @@ const InputWrap = styled.div`
     height: 40px;
     box-sizing: border-box;
     margin: 10px 20px;
+    
+    
   `;
+
 
 const Input = styled.input`
     outline : none;
@@ -152,6 +170,10 @@ const Input = styled.input`
     -webkit-appearance: none;
   // margin-top: 3px;
     background-color: transparent;
+
+    @media screen and (max-width:768px){
+      display:none;
+    }
   `;
 
 const Image = styled.img`

@@ -29,6 +29,9 @@
        align-items: center;
         justify-content: space-between;
 }
+.headerInput img{
+  padding-left: 10px;
+}
 .headerMenuDiv{
   width: 70%;
    height: 100%;
@@ -40,6 +43,7 @@
 }
 
 .headerMenu1 {
+  cursor: pointer;
   width: 50%;
   border-radius: 5px;
   border: solid 1px #e9ecef;
@@ -53,6 +57,7 @@
   margin: 0px 10px;
 }
 .headerMenu {
+  cursor: pointer;
   border-radius: 5px;
   border: solid 1px #e9ecef;
   box-sizing: border-box;
@@ -63,6 +68,20 @@
   padding: 7px;
   height: 40px;
   margin: 0px 10px;
+}
+.headerMenuLogout{
+  cursor: pointer;
+  border-radius: 5px;
+  border: solid 1px #e9ecef;
+  box-sizing: border-box;
+  width: 20%;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  padding: 7px;
+  height: 40px;
+
 }
 .signinIcon{
   width: 80px;
@@ -75,21 +94,25 @@
 }
 
 @media screen and (max-width:998px) {
+  
   .headerMenu1{
     width: 25%;
   }
-  .headerMenu1 span{
+  .headerMenuLogout{
+    width: 15%;
+  }
+  .headerMenu1 span,  .headerMenuLogout span {
       display: none;
   }
   
 }
 @media screen and (max-width:768px) {
+  .headerLeft{
+    width: auto;
+  }
   .signinIcon {
     width: 50px;
     cursor: pointer;
-  }
-  .headerMenu1, .headerMenu{
-      
   }
 }
 

@@ -705,9 +705,92 @@
     color: #666666;
 }
 
+.itemsFound{
+  text-align: left;
+  padding-left: 4%;
+}
+
+
+
+
+
 .footer{
   background:#22222221;
     padding: 18px 24px;
+}
+
+
+@media screen and (min-width:768px){ /* 768이상 */
+  .mediaqSearchBox{
+    display: none;
+  }
+}
+@media screen and (max-width:768px) { /* 768미만*/
+  .itemLists{
+    margin: 0;
+  }
+  .detailContainer{
+    padding-Top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+ 
+  .cardsWrap {
+    width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+  }
+  .itemLists .cardsWrap .card, .detailAllproducts .cardsWrap .card,
+  .cardsWrap .card{
+    width: 100%;
+    padding-right: 10%;
+    padding-left: 10%;
+  }
+
+  .slider-item img{
+    width: 90%;
+    height: 400px;
+  }
+
+  .itemsFound{
+    text-align: left;
+    padding-left: 14%;
+  }
+
+  
+  .mediaqSearchBox{
+    margin-top: 3%;
+    display: block;
+  width: 80%;
+    border-radius: 5px;
+    border: solid 1px #e9ecef;
+    text-decoration: none;
+    height: 40px;
+    box-sizing: border-box;
+    margin-right: 13%;
+    margin-left: 13%;
+}
+.mediaqSearchBox .headerInput{
+  width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.mediaqSearchBox .headerInput input{
+  outline: none;
+    border: hidden;
+    margin: 0px;
+    padding: 5px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    margin: auto;
+    -webkit-appearance: none;
+    background-color: transparent;
+}
 
 }
 

@@ -25,10 +25,17 @@ const Footer = () => {
                         <li><a href="https://www.flaticon.com/free-icons/send" title="send icons">Send icons created by Freepik - Flaticon</a></li>
                         <li><a href="https://www.flaticon.com/free-icons/modify" title="modify icons">Modify icons created by Arkinasi - Flaticon</a></li>
                         <li><a href="https://www.flaticon.com/free-icons/trash" title="trash icons">Trash icons created by Freepik - Flaticon</a></li>
-                        <li><a href="https://www.flaticon.com/free-icons/animal" title="animal icons">Animal icons created by Freepik - Flaticon</a></li>
-                        <li><a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Vlad Szirka - Flaticon</a></li>
                     </ul>
                     </div>
+                    <div className='credits'>
+                    <h2 style={{color:'#faf1f1'}}>Credits</h2>
+                    <ul>
+                        <li><a href="https://www.flaticon.com/free-icons/magnifier" title="magnifier icons">Magnifier icons created by Vector Stall - Flaticon</a></li>
+                        <li><a href="https://www.flaticon.com/free-icons/animal" title="animal icons">Animal icons created by Freepik - Flaticon</a></li>
+                        <li><a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Vlad Szirka - Flaticon</a></li>
+                 </ul>
+                    </div>
+
                 </div>
                 <div className="sec contact">
                     <h2>Contact Us</h2>
