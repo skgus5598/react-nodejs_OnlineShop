@@ -16,6 +16,8 @@ const Profile = () => {
     const [town, setTown] = useState('');
     let user = useSelector((state) => state.persistedReducer.user_rd);
 
+    const [validation , setValidation] = useState(true);
+
     useEffect(() => {
         axios.get(`http://localhost:5000/getUserInfo/${user.userNo}`)
             .then((res) => {
@@ -23,17 +25,36 @@ const Profile = () => {
                 setUserInfo(res.data) // for comparing values
                 setNickname(res.data.nickname);
                 setEmail(res.data.userEmail);
-                setCity(res.data.userRegion);
-                setTown(res.data.userArea);
+                if(res.data.userRegion == null && res.data.userArea == null){
+                    console.log("here")
+                    setCity("0");
+                    setTown("0");
+                    setValidation(false);
+                    document.getElementById('city').focus();
+                }else{
+                    setCity(res.data.userRegion);
+                    setTown(res.data.userArea);
+                    setValidation(true)
+                }     
             })
             .catch((e) => { console.log(e) });
     }, []);
 
     const onChangeCityHandler=(e)=>{
+        let value = e.currentTarget.value;
         setCity(e.currentTarget.value);
+        
+        if(value !== "0" && town !== "0" ){  setValidation(true); }
+        else setValidation(false);
+        
     }
     const onChangeTownHandler=(e)=>{
+        let value = e.currentTarget.value;
         setTown(e.currentTarget.value)
+        
+        if(value !== "0" && city !== "0" ){ setValidation(true);}
+        else setValidation(false);
+
     }
 
     const onSubmitHandler = (e) => {
@@ -78,6 +99,7 @@ const Profile = () => {
 
                     <Form.Label>CITY</Form.Label>
                     <Form.Select onChange={onChangeCityHandler} id="city" value={city}>
+                        <option  value="0">--Please Select Your City--</option>
                         {cities.map((item, index) => (
                             <option key={item.key} value={item.value}>{item.value}</option>
                         ))}
@@ -85,8 +107,11 @@ const Profile = () => {
 
                     <Form.Label>TOWN</Form.Label>
                     <Form.Select onChange={onChangeTownHandler} id="town" value={town}>
-                        {
-                            city == 'London(Greater London)'
+                        <option  value="0">--Please Select Your Town--</option>
+                        {   
+                            city == '0'
+                            ? <></>
+                            : (city == 'London(Greater London)'
                                 ?
                                 londonTowns.map((item, index) => (
                                     <option key={item.key} value={item.value}>{item.value}</option>
@@ -94,16 +119,18 @@ const Profile = () => {
                                 : manchesterTowns.map((item, index) => (
                                     <option key={item.key} value={item.value}>{item.value}</option>
                                 ))
+                            )
                         }
                     </Form.Select>
                     <br />
                     {
-                        (nickname == userInfo.nickname && 
-                         email == userInfo.userEmail &&
-                         city == userInfo.userRegion &&
-                         town == userInfo.userArea
-                        )
-                        ? <button className="profile_save_btn_ds" type="submit" disabled> SAVE </button>
+                        // (nickname === userInfo.nickname && 
+                        //  email === userInfo.userEmail &&
+                        //  city === userInfo.userRegion && 
+                        //  town === userInfo.userArea
+                        // )
+                        !validation
+                        ? <button className="profile_save_btn_ds" type="submit" disabled> SAVE</button>
                         : <button className="profile_save_btn" type="submit"> SAVE </button>
                     }
                 </Form>
