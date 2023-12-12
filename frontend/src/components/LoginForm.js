@@ -84,7 +84,7 @@ const LoginForm = () => {
             <br/>
             <label className='login-alink'> Don't you have an account?
                 <Link to={'/signUp'}style={{width : '100%'}}>
-                    <h2><img src={arrow} /> SIGN UP </h2>
+                    <span><img src={arrow} /> SIGN UP </span>
                 </Link>
             </label>
         </div>

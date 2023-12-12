@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple } from "@fortawesome/free-brands-svg-icons";
-import { faBars, faUser, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUser, faTimes, faPlus } from "@fortawesome/free-solid-svg-icons";
 import '../style/Header.css'
+import chicken from '../img/chicken.png';
+import mainlogo from '../img/mainlogo.png';
+import glass from '../img/glass.png';
 
 const HeaderTest = () => {
 
@@ -24,7 +27,8 @@ const HeaderTest = () => {
 
             {/* Apple 로고 */}
             <div className="logo">
-                <FontAwesomeIcon icon={faApple} />
+                {/* <FontAwesomeIcon icon={faApple} /> */}
+                <img src={mainlogo} />
             </div>
 
             {/* User 버튼 */}
@@ -39,16 +43,54 @@ const HeaderTest = () => {
 
             {/* 메뉴 리스트 */}
             <ul className="header__menulist">
-                <li><input className="_1knjz49a" placeholder="Search for anything"></input></li>
-                <li>iPad</li>
-                <li>iPhone</li>
-                <li>고객지원</li>
+                <li>
+                    <InputWrap>
+                      <div className="headerInput">
+                        <Input placeholder="Search for anything"></Input>
+                        <img src={glass} />
+                      </div>
+                    </InputWrap>
+                </li>
+                <li>
+                  <a className="headerMenu1">
+                    <FontAwesomeIcon style={{
+                      color: "#495057",
+                      verticalAlign: "middle",
+                      display: "inline-block",
+                    }} icon={faPlus} />
+                    <Button ><span>Add a Listing</span></Button>
+                  </a>
+                </li>
+                <li>
+                    <a className="headerMenu1">
+                        <FontAwesomeIcon style={{
+                          color: "#495057",
+                          verticalAlign: "middle",
+                          display: "inline-block",
+                        }} icon={faPlus} />
+                        <Button ><span>Add a Listing</span></Button>
+                      </a>
+                </li>
+                <li>
+                    <a className="headerMenu1">
+                        <FontAwesomeIcon style={{
+                          color: "#495057",
+                          verticalAlign: "middle",
+                          display: "inline-block",
+                        }} icon={faPlus} />
+                        <Button ><span>Add a Listing</span></Button>
+                    </a>
+                </li>
             </ul>
 
             {/* User 메뉴 리스트 */}
             <ul className="header__right">
-                <li>Login</li>
-                <li>Register</li>
+                <li>
+                      <img className="signinIcon" src={chicken} />
+                </li>
+                <li>
+                    <Button>   Sign in  </Button> 
+                </li>
             </ul>
         </Header>
     )
@@ -108,14 +150,14 @@ const Header = styled.div`
       display: ${(props) => (props.userToggled ? "flex" : "none")};
       flex-direction: column;
       width: 100%;
-      background-color: black;
+      background-color: #faf1f1;
     }
 
     .header__menulist {
       display: ${(props) => (props.isToggled ? "flex" : "none")};
       flex-direction: column;
       width: 100%;
-      background-color: black;
+      background-color: #faf1f1;
     }
 
     .header__menulist li,
@@ -131,6 +173,44 @@ const Header = styled.div`
     .user {
       display: block;
     }
+  }
+`;
+
+const InputWrap = styled.div`
+  width:100%;
+    border-radius: 5px;
+    border: solid 1px #e9ecef;
+    text-decoration: none;
+    height: 40px;
+    box-sizing: border-box;
+    margin: 10px 20px;
+    
+    
+  `;
+
+const Button = styled.div`
+    display: inline-block;
+    color: #495057;
+    font-size: 14px;
+    margin-left: 8px;
+    font-weight: 700;
+    vertical-align: middle;
+  `;
+  const Input = styled.input`
+  outline : none;
+  border: hidden;
+  margin: 0px;
+  padding: 5px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  margin: auto;
+  -webkit-appearance: none;
+// margin-top: 3px;
+  background-color: transparent;
+
+  @media screen and (max-width:768px){
+    display:none;
   }
 `;
     /*     <header>

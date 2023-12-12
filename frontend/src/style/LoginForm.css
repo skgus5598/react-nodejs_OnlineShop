@@ -60,11 +60,10 @@ input[type='password'] {
 .login-alink{
     padding-top: 10px;
 }
-.login-alink h2{
-    padding-top: 10px;
-    background-color: yellow;
-    margin-bottom: 10px;
-    border-radius: 10px;
+.login-alink span{
+    color: dodgerblue;
+    font-size: x-large;
+   margin-left: 10%;
 }
 .login-alink img{
     margin-bottom: 10px;

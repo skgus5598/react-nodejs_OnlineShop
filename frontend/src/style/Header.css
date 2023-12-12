@@ -1,9 +1,9 @@
+
 .headerTop{
   width:100%;
   height: 100%;
   box-sizing: border-box;
    padding:5px 0px;
-    width:90%;
      margin:auto;
      display: flex;
       align-items: center;
@@ -32,6 +32,9 @@
 .headerInput img{
   padding-left: 10px;
 }
+.headerMenuDiv nav{
+  display: flex;
+}
 .headerMenuDiv{
   width: 70%;
    height: 100%;
@@ -41,7 +44,9 @@
        align-items: center;
         justify-content: space-between;
 }
-
+.headerMenu0{
+  display: none;
+}
 .headerMenu1 {
   cursor: pointer;
   width: 50%;
@@ -113,6 +118,28 @@
   .signinIcon {
     width: 50px;
     cursor: pointer;
+  }
+
+  .headerMenu0{
+    cursor: pointer;
+    border-radius: 5px;
+    border: solid 1px #e9ecef;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    padding: 7px;
+    height: 40px;
+    margin: 0px 10px;
+  }
+  .inputwrapImg{
+    width: 30px;
+    height: 30px;
+  }
+  .headerMenu1 svg, .headerMenu svg{
+    width: 15px;
+    height: 15px;
   }
 }
 

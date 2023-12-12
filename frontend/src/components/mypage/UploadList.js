@@ -16,6 +16,8 @@ const UploadList = () => {
 
     return (
         <>
+                <div className='mypage'>
+
         <div className='detailContainer'>
             <div className='mypage_headmenu' onClick={()=>{ navigate(-1)}} >
                     <div>
@@ -57,7 +59,7 @@ const UploadList = () => {
                 </div>
             }
           </div>
-     
+     </div>
         </>
     )
 }

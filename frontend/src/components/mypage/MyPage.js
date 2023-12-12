@@ -29,6 +29,7 @@ const MyPage = () => {
 
     return (
         <>
+        <div className='mypage'>
             <div className='detailContainer'>
                 <div className='menu' >
                     <div  onClick={() => { navigate('/profile')}}>
@@ -49,6 +50,7 @@ const MyPage = () => {
                     </div>
                 </div>
             </div>
+            </div> 
         </>
     )
 };

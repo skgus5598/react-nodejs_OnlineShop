@@ -6,19 +6,29 @@ import axios from 'axios';
 import back from '../../img/back.png';
 import deleteIcon from '../../img/delete.png';
 import modifyIcon from '../../img/modify.png';
+import { useSelector } from 'react-redux';
 
 const MyUploadDetail = () => {
     let navigate = useNavigate();
     let location = useLocation();
-    const data = { ...location.state };
+    //const data = { ...location.state };
+    const data = location.state;
     console.log("details data : " + JSON.stringify(data));
+    let userNo = useSelector((state) => state.persistedReducer.user_rd.userNo); //redux
 
 
     const deleteBtn = () => {
         if (window.confirm('Do you want to delete this product?')) {
             axios.delete(`http://localhost:5000/deleteList/${data.id}`)
                 .then(res => {
-                    navigate(-1)
+                    axios.get(`http://localhost:5000/getListByParam_b/`, {
+                        params: {
+                            userNo : userNo
+                        }
+                      }).then( (res => { 
+                        alert("Delete Success!!")
+                        navigate('/uploadList', {state : res.data});
+                      })).catch((err) => {  console.log(err)  })
                 });
         }
     }
@@ -38,6 +48,7 @@ const MyUploadDetail = () => {
     }
 
     return (
+        <div className='mypage'>
 
         <div className="detailContainer" >
             <img className='backImg' src={back} onClick={() => { navigate(-1) }} />
@@ -70,16 +81,16 @@ const MyUploadDetail = () => {
                 <span>{data.pd_category}</span><br /><br />
                 <h4><b>£{data.pd_price}</b></h4>
                 {
-                    data.pd_desc.split("\r\n").map((line => {
+                    data.pd_desc.split("\r\n").map(((line, i) => {
                         return (
-                            <span>{line}
+                            <span key={i}>{line}
                                 <br />
                             </span>
                         )
                     }))
                 }
                 <br /><br />
-                <span className='likeSpan'>like 30∙click 189</span>
+                <span className='likeSpan'>like {data.likeTot}∙click {data.pd_views}</span>
             </div>
 
 
@@ -87,6 +98,7 @@ const MyUploadDetail = () => {
             <div className='bumpBtn'>
                 <button onClick={() => { bumpBtn() }}>Bring Up My Post</button>
             </div>
+        </div>
         </div>
     )
 }

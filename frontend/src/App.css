@@ -426,6 +426,7 @@
   font-size:x-large;
 }
 .uploadRow select{
+  padding-left: 10px;
   border-radius: 5px;
   border: solid 1px #81dacd;
   text-decoration: none;
@@ -444,6 +445,7 @@
   width: 100%;
 }
 .uploadRow textarea{
+  padding: 5%;
   border-radius: 5px;
   border: solid 1px #81dacd;
   text-decoration: none;
@@ -720,21 +722,48 @@
 }
 
 
-@media screen and (min-width:768px){ /* 768이상 */
+@media all and (min-width:768px) and (max-width:1023px){ /* 768이상 */
   .mediaqSearchBox{
     display: none;
   }
 }
-@media screen and (max-width:768px) { /* 768미만*/
+@media all and (max-width:768px) { /* 768미만 (mobile)*/
+  *{
+    width: 100%;
+  }
   .itemLists{
     margin: 0;
   }
-  .detailContainer{
-    padding-Top: 5%;
-    padding-left: 5%;
-    padding-right: 5%;
-  }
  
+  .mypage{
+    padding-bottom: 10%;
+  }
+  .detailContainer, .uploadRow{
+    
+    flex-Flow: column;
+    padding: 5%;
+  }
+  .detailContainer .div2 img{
+    width: auto;
+    height: auto;
+  }
+  .detailContainer .sellerInfo, .detailContainer h3,h4,span{
+    padding: 3%;
+  }
+  .detailContainer .sellerInfo .div1{
+    width: auto;
+  }
+  
+  .mypage_headmenu img, .menu img {
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+.mypage_headmenu div, .menu div {
+  height: auto;
+  padding-bottom: 10px;
+}
+.profile_form{padding: 0;}
   .cardsWrap {
     width: 100%;
         display: grid;
@@ -747,9 +776,10 @@
     padding-left: 10%;
   }
 
-  .slider-item img{
-    width: 90%;
-    height: 400px;
+  .slick-slide img{
+    border-radius:12px;
+      width: 100%;
+      height: fit-content;
   }
 
   .itemsFound{
@@ -790,6 +820,11 @@
     margin: auto;
     -webkit-appearance: none;
     background-color: transparent;
+}
+.mediaqSearchBox .headerInput img{
+  width: 30px;
+  height: 30px;
+  padding: 0;
 }
 
 }

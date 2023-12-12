@@ -18,6 +18,8 @@ const LikedList = () => {
 
     return (
         <>
+                <div className='mypage'>
+
             <div className='detailContainer'>
                 <div className='mypage_headmenu' onClick={() => { navigate('/myPage') }} >
                     <div>
@@ -63,7 +65,7 @@ const LikedList = () => {
 
                 </div>
             </div>
-
+</div>
         </>
     )
 }

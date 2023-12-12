@@ -33,7 +33,7 @@ const signUp = (req, res) => {
             let values = [userId, userPwd, userEmail, nickName];
 
             console.log('values : ', values)
-            sql = 'INSERT INTO users(userId, userPwd, userEmail, nickname) VALUES(?, ?, ?, ? );';
+            sql = 'INSERT INTO users(userId, userPwd, userEmail, nickname, userRegion, userArea) VALUES(?, ?, ?, ?, 0, 0 );';
             connection.query(sql, values, (err, result) => {
                 if (err) {
                     console.log('query is not excuted. checkId fail!\n' + err);

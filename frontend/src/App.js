@@ -14,6 +14,7 @@ import Profile from './components/mypage/Profile.js';
 import SearchProducts from './components/SearchProducts.js';
 import  Footer  from './components/layout/Footer.js';
 import PrivateRoute from './components/PrivateRoute.js';
+import HeaderTest from './components/HeaderTest.js';
 
 function App() {
   return (
@@ -30,7 +31,9 @@ function App() {
             <Route path='/likedList' element={<LikedList />} />
             <Route path='/myUploadDetail' element={<MyUploadDetail />} />
         </Route> 
-     
+
+        <Route path="/headertest" element={<HeaderTest />} />
+
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signUp" element={<SignUpForm />} />
         <Route path="/detail" element={<Product_details />} />

@@ -16,20 +16,22 @@ import axios from "axios";
 
 const Header = () => {
   let navigate = useNavigate();
-
-  let userNo = useSelector((state) => state.persistedReducer.user_rd.userNo); //redux
-  let isLogin = useSelector( (state) => state.persistedReducer.user_rd.loginCheck);
+  let { userNo, loginCheck, userRegion } = useSelector( (state) => state.persistedReducer.user_rd);
   let dispatch = useDispatch(); // send request to store.js(redux)
 
   let [keyword, setKeyword] = useState('');
 
-  console.log("header islogin  :" + isLogin)
+  console.log("header loginCheck  :" + loginCheck)
 
   const addBtn = () => {
-    if(!isLogin){
+    if(!loginCheck){
       navigate('/login')
     }else{
-      navigate('/upload')
+      // if userRegion&area is null => navigate to mypage/profile
+      if(userRegion === "0"){ navigate('/profile')}
+      else navigate('/upload')
+     
+
     }
 };
 
@@ -50,9 +52,15 @@ const handleOnKeyPress = e => {
 }
 
 const getLikedList = () => {
-  axios.get(`http://localhost:5000/getLikeList/${userNo}`)
-      .then((res) => {  navigate('/likedList' ,  {state : res.data})    
-      }).catch((e) => console.log(e));
+  if(!loginCheck){
+    alert('Please Sign in first');
+    navigate('/login')
+  }else{
+    axios.get(`http://localhost:5000/getLikeList/${userNo}`)
+    .then((res) => {  navigate('/likedList' ,  {state : res.data})    
+    }).catch((e) => console.log(e));
+  }
+  
 }
 
   return (
@@ -78,7 +86,7 @@ const getLikedList = () => {
             <InputWrap>
               <div className="headerInput">
                 <Input value={keyword} onChange={searchHandler} onKeyDown={handleOnKeyPress}  placeholder="Search for anything"></Input>
-                <img
+                <img 
                   style={{ marginRight: "10px", cursor: "pointer" }}
                   src={glass}
                   onClick={ () => { navigate('/searchProducts', { state: keyword})}}
@@ -87,6 +95,12 @@ const getLikedList = () => {
             </InputWrap>
           </div>
           <div className="headerMenuDiv" >
+            <a className="headerMenu0" style={{ width: '25%'}} >
+              <img className="inputwrapImg"
+                    src={glass}
+                    onClick={ () => { navigate('/searchProducts', { state: keyword})}}
+               />
+            </a>
             <a className="headerMenu1" onClick={() => {addBtn()}}>
               <FontAwesomeIcon style={{
                 color: "#495057",
@@ -103,7 +117,7 @@ const getLikedList = () => {
                 display: "inline-block",
               }} icon={faHeart} size="lg" />
             </a>
-            <a className="headerMenu" style={{ width: '25%', cursor:'pointer'  }} >
+            <a className="headerMenu" style={{ width: '25%', cursor:'pointer'  }} onClick={() => { alert("Comming soon!")}} >
               <FontAwesomeIcon style={{
                 color: "#6f6f6f",
                 verticalAlign: "middle",
@@ -112,7 +126,7 @@ const getLikedList = () => {
             </a>
           </div>
           {
-            isLogin
+            loginCheck
               ? <>
                   <img className="signinIcon" src={chicken} onClick={(e) => {
                           window.scrollTo({
@@ -154,6 +168,9 @@ const InputWrap = styled.div`
     box-sizing: border-box;
     margin: 10px 20px;
     
+    @media screen and (max-width:768px){
+      display:none;
+    }
     
   `;
 
@@ -171,9 +188,7 @@ const Input = styled.input`
   // margin-top: 3px;
     background-color: transparent;
 
-    @media screen and (max-width:768px){
-      display:none;
-    }
+    
   `;
 
 const Image = styled.img`

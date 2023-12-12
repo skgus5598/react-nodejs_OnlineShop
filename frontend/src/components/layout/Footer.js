@@ -10,7 +10,6 @@ const Footer = () => {
             <div className="container">
                 <div className="sec aboutus">
                     <h2>About Us</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem, unde fugit odit deserunt, aspernatur ad, maxime esse optio ullam blanditiis inventore placeat quos repellat? Tempora sit incidunt impedit vero est earum illo, rerum corporis nesciunt error fuga minima, rem eligendi.</p>
                     <ul className="sci">
                         <li><a href="#"><FontAwesomeIcon style={{color:'white'}} icon={faPlus} /> </a></li>
                         <li><a href="#"><FontAwesomeIcon style={{color:'white'}}  icon={faEnvelope} /></a></li>

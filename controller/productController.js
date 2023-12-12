@@ -171,6 +171,33 @@ const getListByParam_b = (req, res) => {
         else res.send(result);
     })
 }
+
+const getDetailByPdId = (req, res) => {
+    const pdId =  req.params.pdId;
+
+    sql = 'SELECT p.* ,'
+        +     'u.userId ,'
+        +     'u.userRegion ,'
+        +     'u.userArea ,'
+        +     '(SELECT ir.imgName '
+        +     'FROM imagesRepo ir '
+        +     'WHERE p.id = ir.pdId '
+        +     'LIMIT 1) as imgName, '
+        +     '(SELECT COUNT(*) '
+        +     'FROM likeHit li '
+        +     'WHERE li.pd_id = p.id '
+        +     ') as likeTot '
+    + 'FROM products p '
+    + 'INNER JOIN users u ON u.userNo  = p.userNo '
+    + `WHERE p.id = ${pdId}  ; `;
+
+    connection.query(sql,(err, result) => {
+        console.log("sql : " + sql)
+        if (err) console.log("query is not excuted. getDetailByPdId fail!\n" + err);
+        else res.send(result);
+    })
+}
+
 const deleteList = (req, res) => {
     console.log('boardID : ', req.params.id);
     let param = req.params.id;
@@ -304,7 +331,7 @@ const bumpMyList = (req, res) => {
 
 
 module.exports = { findAll , insertProduct, getImageNamesByPdId, 
-                     deleteList, updateProduct, 
+                     deleteList, updateProduct, getDetailByPdId,
                     getListByParam_a, getListByParam_b,
                     getLikeList, getLike, insertLike, deleteLike,
                     addViewCnt, bumpMyList}

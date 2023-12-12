@@ -137,9 +137,10 @@ const SignUpForm = () => {
                 </div>
                 <button type="submit" style={{width : '100%'}}>REGISTER</button>
             </form>
+            <br/>
             <label className='login-alink'> Already have an account?
                 <Link to={'/login'} style={{width : '100%'}}>
-                    <h2><img src={arrow} /> LOGIN </h2>
+                    <span><img src={arrow} /> LOGIN </span>
                 </Link>
             </label>
 

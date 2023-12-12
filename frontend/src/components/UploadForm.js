@@ -42,15 +42,6 @@ const UploadForm = () => {
  
     const modifyHandler = (e) => {
         e.preventDefault();
-        let body = {
-            id : pdId,
-            userNo : user_rd.userNo,
-            category : category,
-            title : title,
-            price : price,
-            desc : desc,
-            filename : images
-        }        
         // Order is important. Image file must come last
         console.log("modifyhandler images : " + JSON.stringify(images))
 
@@ -66,8 +57,13 @@ const UploadForm = () => {
         { headers : {"Content-Type" : "application/json"} }
         ).then(res => {
             if(res.data.success){
-                alert('Modify Success');
-                navigate('/uploadList');
+                axios.get(`http://localhost:5000/getDetailByPdId/${pdId}`)
+                    .then((res) => {
+                        alert("Modify Success!");
+                        window.scrollTo({top: 0, behavior: 'smooth' });
+                        navigate('/myUploadDetail', {state : res.data[0]})
+                    })
+                    .catch((e) => console.log(e))
             }else{ alert("Modify Fail" )   } 
         }).catch((e) => {  alert("Server ERROR " , e )   })      
 
