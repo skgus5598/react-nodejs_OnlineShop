@@ -2,7 +2,7 @@
 second-hand online shop
 👉 http://nahyunraina.com/prj1
 
-# Brief summary of upcoming project (in progress) 👇 
+# Brief summary of the project 👇 
 ![screencapture-localhost-3000-2023-12-05-21_47_17](https://github.com/skgus5598/react-nodejs_OnlineShop/assets/78111263/05dd5a52-11bc-4b00-bc8f-ebdd5aeb0a91)
 
 
