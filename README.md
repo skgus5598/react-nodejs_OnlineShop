@@ -2,7 +2,7 @@
 
 👉 http://nahyunraina.com/prj1
 
-# Brief summary of the project 👇 
+# Summary of the project 👇 
 <img width="516" alt="p_1" src="https://github.com/skgus5598/react-nodejs_OnlineShop/assets/78111263/86461cc5-f60e-480f-b4de-cbb4d7ce0821">
 
 
